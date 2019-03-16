@@ -1,12 +1,13 @@
 html {
     height: 100%;
-    background-color: #1e50f4; /* Blue */
+    background-color: #ffffff
 }
 div.jumbotron {
     background-color: #1e50f4; /* Blue */
     color: #ffffff;
     text-align: center;
     padding: 100px;
+    margin-bottom: 0px;
     /*min-height: 100% !important;*/
     /*height: 100vh;*/
 }
