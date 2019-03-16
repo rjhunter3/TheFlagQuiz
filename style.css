@@ -15,8 +15,8 @@ div.jumbotron {
 }
   
 .sliding-background {
-    background: url("sliding-background-flags.png") repeat-x;
-    height: 396px;
+    background: url("sliding-background-flags-colour.png") repeat-x;
+    height: 400px;
     width: 5076px;
     animation: slide 60s linear infinite;
 }
