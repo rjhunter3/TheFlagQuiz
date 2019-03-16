@@ -1,18 +1,27 @@
 html {
     height: 100%;
-    background-color: #ffffff
+    background-color: #124168 !important
+}
+body {
+    background-color: #124168 !important
 }
 div.jumbotron {
     background-color: #1e50f4; /* Blue */
     color: #ffffff;
     text-align: center;
-    padding: 100px;
+    padding: 75px;
     margin-bottom: 0px;
     /*min-height: 100% !important;*/
     /*height: 100vh;*/
 }
+/*div.margin {
+    background-color: #001628
+    padding: 30px
+}*/
 .wrapper {
     overflow: hidden;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
   
 .sliding-background {
