@@ -64,7 +64,9 @@ div.jumbotron {
   border-color: transparent;
   color: #fff !important;
 }
-
+.navbar-brand{
+    line-height: 0px !important;
+}
 
 
 
