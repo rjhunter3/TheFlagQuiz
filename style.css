@@ -6,7 +6,7 @@ body {
     background-color: #124168 !important
 }
 div.jumbotron {
-    background-color: #1e50f4; /* Blue */
+    background-color: #4e91ae; /* Blue */
     color: #ffffff;
     text-align: center;
     padding: 75px;
@@ -42,7 +42,9 @@ div.jumbotron {
 
 .navbar {
   margin-bottom: 0;
-  background-color: #1e50f4 !important;
+  /*background-color: #1e50f4 !important;*/
+  /*background-color: #74A3F3 !important;*/
+  background-color: #4e91ae !important;
   z-index: 9999;
   border: 0 !important;
   font-size: 12px !important;
@@ -56,7 +58,7 @@ div.jumbotron {
 }
 
 .navbar-nav li a:hover, .navbar-nav li.active a {
-  color: #1e50f4 !important;
+  color: #4e91ae !important;
   background-color: #fff !important;
 }
 
