@@ -70,8 +70,31 @@ div.jumbotron {
     line-height: 0px !important;
 }
 
+/*.btn {
+    border-radius: 0px !important;
+}*/
 
 
+.navbar-btn {
+    border-color: transparent;
+    background-color: #4e91ae !important;
+    color: #fff !important;
+    /*outline-color: transparent !important;*/
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px !important; 
+}
+.navbar-btn:hover {
+    color: #4e91ae !important;
+    background-color: #fff !important;
+    /*outline-color: transparent !important;*/
+}
+/*.btn:focus,.btn:active {
+    outline: none !important;
+}*/
+.btn-danger {
+    border-color: #4e91ae !important;
+}
 
 /*
 @-webkit-keyframes slide {
