@@ -1,6 +1,7 @@
 html {
     height: 100%;
-    background-color: #124168 !important
+    background-color: #124168 !important;
+    /*overflow-y: auto;*/
 }
 body {
     background-color: #124168 !important
@@ -94,6 +95,10 @@ div.jumbotron {
 }*/
 .btn-danger {
     border-color: #4e91ae !important;
+}
+
+.icon {
+    cursor: pointer;
 }
 
 /*
