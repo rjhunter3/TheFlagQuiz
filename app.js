@@ -5,6 +5,8 @@ const app = express();
 app.use(express.static('client'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
+
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -31,13 +33,21 @@ app.get('/randflag', async function(req, resp){
         }*/
         if (check == null){
             flag = true
+            let flagurl = data.Response[0].FlagPng
+            let countryname = data.Response[0].Name
+            console.log(flagurl)
+            console.log(countryname)
+            resp.send(flagurl)
         }
     }
     console.log('well this worked')
-    let flagurl = data.Response[0].FlagPNG
+    /*
+    console.log(data)
+    let flagurl = data.Response[0].FlagPng
     let countryname = data.Response[0].Name
     console.log(flagurl)
     console.log(countryname)
+    */
 })
 
 module.exports = app;

@@ -3,11 +3,34 @@ document.getElementById('new').addEventListener('click', async function(event){
     /*let response = ['response'];
     document.getElementById('content').innerHTML = response;*/
     console.log('fetching now')
+    try {
+        let response = await fetch('http://127.0.0.1:8090/randflag',
+        {
+        method: "GET"
+        });
+        if(response.ok){
+            console.log('alright guys lets get started')
+            let body = await response.text();
+            console.log(body)
+            /*let flagJSON = JSON.parse(body);
+            console.log(flagJSON)*/
+            document.getElementById('content').innerHTML =
+            '<img src=' + body + '>'
+            /*alert(body)*/
+        }
+        else {
+            throw new Error("Problem Getting flag" + response.code);
+        }
+    }
+    catch(error) {
+        alert ("problem: " + error);
+    }
+    /*
     let response = await fetch('http://127.0.0.1:8090/randflag',
     {
       method: "GET"
     });
-
+    */
 });
 document.getElementById('home').addEventListener('click', async function(event){
     let response = '<div class="jumbotron">';
