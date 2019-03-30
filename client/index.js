@@ -1,7 +1,12 @@
 
 document.getElementById('new').addEventListener('click', async function(event){
-    let response = ['response'];
-    document.getElementById('content').innerHTML = response;
+    /*let response = ['response'];
+    document.getElementById('content').innerHTML = response;*/
+    console.log('fetching now')
+    let response = await fetch('http://127.0.0.1:8090/randflag',
+    {
+      method: "GET"
+    });
 
 });
 document.getElementById('home').addEventListener('click', async function(event){
