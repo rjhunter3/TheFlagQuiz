@@ -14,8 +14,10 @@ document.getElementById('new').addEventListener('click', async function(event){
             console.log(body)
             /*let flagJSON = JSON.parse(body);
             console.log(flagJSON)*/
-            document.getElementById('content').innerHTML =
-            '<img src=' + body + '>'
+            let content = '<div class="flagContainer">'
+            content += '<img height="300" src=' + body + '>';
+            content += '</div>';
+            document.getElementById('content').innerHTML = content
             /*alert(body)*/
         }
         else {
