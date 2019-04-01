@@ -110,6 +110,9 @@ div.jumbotron {
     margin-right: auto;
     width: 50%;
 }
+.topContainer {
+    padding-top: 100px;
+}
 
 /*
 @-webkit-keyframes slide {
