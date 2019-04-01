@@ -129,6 +129,12 @@ td {
     color: #ffffff;
 }
 
+.img-fluid {
+    max-height: 300px !important;
+    max-width: 100% !important;
+    width: auto !important;
+    height: auto !important;
+}
 /*
 @-webkit-keyframes slide {
     from{

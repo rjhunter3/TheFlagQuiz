@@ -72,7 +72,7 @@ document.getElementById('new').addEventListener('click', async function(event){
             /*let flagJSON = JSON.parse(body);
             console.log(flagJSON)*/
             let content = '<div class="flagContainer">'
-            content += '<img height="300" src=' + parse[0] + '>';
+            content += '<img class="img-fluid" src=' + parse[0] + '>';
             content += '</div>';
             content += '<div class="table">'
             content += '<table class="table">'
