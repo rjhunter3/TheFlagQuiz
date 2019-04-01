@@ -1,11 +1,30 @@
+/*
+function add(h2,seconds,minutes,hours) {
+    seconds++;
+    if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+            minutes = 0;
+            hours++;
+        }
+    }
+    h2.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+    timer()
+}
+function timer(h2,seconds,minutes,hours) {
+    t = setTimeout(add(h2,seconds,minutes,hours), 1000);
+}
+*/
 
 document.getElementById('new').addEventListener('click', async function(event){
     var seconds = 0, minutes = 0, hours = 0;
     let content = '<div class="topContainer">';
-    content += '<h1><time>00:00:00</time></h1>';
+    content += '<h1 style="display:inline;">Time: </h1>';
+    content += '<h2 style="display:inline;"><time>00:00:00</time></h2>';
     content += '</div>';
     document.getElementById('content').innerHTML = content;
-    var h1 = document.getElementsByTagName('h1')[0];
+    var h2 = document.getElementsByTagName('h2')[0];
     function add() {
         seconds++;
         if (seconds >= 60) {
@@ -16,7 +35,7 @@ document.getElementById('new').addEventListener('click', async function(event){
                 hours++;
             }
         }
-        h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+        h2.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
         timer()
     }
     function timer() {
@@ -63,6 +82,7 @@ document.getElementById('newflag').addEventListener('click', async function(even
     */
 });
 document.getElementById('home').addEventListener('click', async function(event){
+    console.log("I'm here")
     let response = '<div class="jumbotron">';
     response += '<h1>Flag Quiz</h1>';
     response += '<p>Test your vexillological knowledge!</p>';
