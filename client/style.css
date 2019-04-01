@@ -98,11 +98,14 @@ div.jumbotron {
 }
 
 .icon {
-    cursor: pointer;
+    cursor: pointer !important;
+    display: inline-block !important;
+    width: 169.8px !important;
+    height: 50px !important;
 }
 .flagContainer {
     text-align: center;
-    padding-top: 100px;
+    padding-top: 50px;
 }
 .center {
     display: block;
@@ -116,11 +119,9 @@ div.jumbotron {
     color: #ffffff;
 }
 .table {
-    padding-top: 100px;
+    padding-top: 50px;
     text-align: center !important;
     background-color: #124168 !important
-
-
 }
 td {
     text-align:center;
@@ -135,6 +136,14 @@ td {
     width: auto !important;
     height: auto !important;
 }
+.title {
+    text-align: center;
+    color: #ffffff;
+    padding-top: 100px;
+}
+
+
+
 /*
 @-webkit-keyframes slide {
     from{

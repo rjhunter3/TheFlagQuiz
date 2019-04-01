@@ -44,15 +44,26 @@ document.getElementById('newgame').addEventListener('click', async function(even
     timer();
 })
 */
+document.getElementById('newGame').addEventListener('click', async function(event){
+    let content = '<div class = "title">';
+    content += '<h1> Question 1/20 </h1>';
+    content += '</div>';
+    document.getElementById('title').innerHTML = content;
+    document.getElementById('content').innerHTML = '';
+    console.log('working')
+    newFlag()
 
+})
 // Gets random integer
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
-
+/*
 document.getElementById('new').addEventListener('click', async function(event){
+*/
+async function newFlag(event) {
     /*let response = ['response'];
     document.getElementById('content').innerHTML = response;*/
     console.log('fetching now')
@@ -129,7 +140,8 @@ document.getElementById('new').addEventListener('click', async function(event){
       method: "GET"
     });
     */
-});
+};
+
 document.getElementById('home').addEventListener('click', async function(event){
     console.log("I'm here")
     let response = '<div class="jumbotron">';
@@ -139,6 +151,7 @@ document.getElementById('home').addEventListener('click', async function(event){
     response += '<div class="wrapper">';
     response += '<div class="sliding-background"></div>';
     response += '</div>';
+    document.getElementById('title').innerHTML = ''
     document.getElementById('content').innerHTML = response;
 })
 
