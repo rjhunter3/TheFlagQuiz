@@ -16,8 +16,8 @@ function timer(h2,seconds,minutes,hours) {
     t = setTimeout(add(h2,seconds,minutes,hours), 1000);
 }
 */
-
-document.getElementById('new').addEventListener('click', async function(event){
+/*
+document.getElementById('newgame').addEventListener('click', async function(event){
     var seconds = 0, minutes = 0, hours = 0;
     let content = '<div class="topContainer">';
     content += '<h1 style="display:inline;">Time: </h1>';
@@ -43,10 +43,9 @@ document.getElementById('new').addEventListener('click', async function(event){
     }
     timer();
 })
+*/
 
-
-
-document.getElementById('newflag').addEventListener('click', async function(event){
+document.getElementById('new').addEventListener('click', async function(event){
     /*let response = ['response'];
     document.getElementById('content').innerHTML = response;*/
     console.log('fetching now')
@@ -58,11 +57,12 @@ document.getElementById('newflag').addEventListener('click', async function(even
         if(response.ok){
             console.log('alright guys lets get started')
             let body = await response.text();
-            console.log(body)
+            let parse = JSON.parse(body)
+            console.log(parse[0])
             /*let flagJSON = JSON.parse(body);
             console.log(flagJSON)*/
             let content = '<div class="flagContainer">'
-            content += '<img height="300" src=' + body + '>';
+            content += '<img height="300" src=' + parse[0] + '>';
             content += '</div>';
             document.getElementById('content').innerHTML = content
             /*alert(body)*/

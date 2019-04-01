@@ -30,7 +30,34 @@ app.get('/randflag', async function(req, resp){
     let countryname = data.Response[rand].Name
     console.log(flagurl)
     console.log(countryname)
-    resp.send(flagurl)
+    /*resp.send(flagurl)*/
+    let send = []
+    send.push(flagurl)
+    let options = []
+    let numbers = []
+    options.push(countryname)
+    numbers.push(rand)
+    for (let i=0; i < 3; i++) {
+        let random = getRandomInt(0,250)
+        let check = i
+        for (j in numbers) {
+            if (random == j) {
+                i -= 1
+            }
+        }
+        if (check == i) {
+            numbers.push(random)
+            options.push(data.Response[random].Name)
+        }
+    }
+    /*
+    for (k in options){
+        send.push(k)
+    }
+    */
+    send = send.concat(options)
+    console.log(send)
+    resp.send(send)
 
     /*
     let flag = false
