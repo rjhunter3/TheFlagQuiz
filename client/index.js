@@ -45,6 +45,13 @@ document.getElementById('newgame').addEventListener('click', async function(even
 })
 */
 
+// Gets random integer
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+}
+
 document.getElementById('new').addEventListener('click', async function(event){
     /*let response = ['response'];
     document.getElementById('content').innerHTML = response;*/
@@ -59,11 +66,53 @@ document.getElementById('new').addEventListener('click', async function(event){
             let body = await response.text();
             let parse = JSON.parse(body)
             console.log(parse[0])
+            // Right answer position
+            let rand = getRandomInt(1,5)
+
             /*let flagJSON = JSON.parse(body);
             console.log(flagJSON)*/
             let content = '<div class="flagContainer">'
             content += '<img height="300" src=' + parse[0] + '>';
             content += '</div>';
+            content += '<div class="table">'
+            content += '<table class="table">'
+            content += '<tr>'
+            if (rand == 1){
+                content += '<td>' + parse[1] + '</td>'
+                content += '<td>' + parse[2] + '</td>'
+                content += '</tr>'
+                content += '<tr>'
+                content += '<td>' + parse[3] + '</td>'
+                content += '<td>' + parse[4] + '</td>'
+            }
+            else if (rand == 2){
+                content += '<td>' + parse[2] + '</td>'
+                content += '<td>' + parse[1] + '</td>'
+                content += '</tr>'
+                content += '<tr>'
+                content += '<td>' + parse[3] + '</td>'
+                content += '<td>' + parse[4] + '</td>'
+            }
+            else if (rand == 3){
+                content += '<td>' + parse[2] + '</td>'
+                content += '<td>' + parse[3] + '</td>'
+                content += '</tr>'
+                content += '<tr>'
+                content += '<td>' + parse[1] + '</td>'
+                content += '<td>' + parse[4] + '</td>'
+            }
+            else if (rand == 4){
+                content += '<td>' + parse[2] + '</td>'
+                content += '<td>' + parse[4] + '</td>'
+                content += '</tr>'
+                content += '<tr>'
+                content += '<td>' + parse[3] + '</td>'
+                content += '<td>' + parse[1] + '</td>'
+            }
+            content += '</tr>'
+            content += '</table>'
+            content += '</div>'
+            console.log(content)
             document.getElementById('content').innerHTML = content
             /*alert(body)*/
         }

@@ -115,6 +115,19 @@ div.jumbotron {
     padding-left: 30px;
     color: #ffffff;
 }
+.table {
+    padding-top: 100px;
+    text-align: center !important;
+    background-color: #124168 !important
+
+
+}
+td {
+    text-align:center;
+    height: 50px;
+    width: 150px;
+    color: #ffffff;
+}
 
 /*
 @-webkit-keyframes slide {
