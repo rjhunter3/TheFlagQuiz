@@ -50,17 +50,18 @@ document.getElementById('newGame').addEventListener('click', async function(even
     content += '<div class="table">'
     content += '<table class="table">'
     content += '<tr>'
-    content += '<td><h1> Question: 1/20 </h1></td>';
-    content += '<td><h1> Score: 0/20 </h1></td>';
+    content += '<td><h2 id="q"> Question: 1/20 </h2></td>';
+    content += '<td><h2 id="score"> Score: 0 </h2></td>';
     content += '</tr>'
     content += '</table>'
     content += '</div>'
-    content += '<h1> Identify the Flag: </h1>'
+    content += '<h2> Identify the Flag: </h2>'
     content += '</div>';
     document.getElementById('title').innerHTML = content;
     document.getElementById('content').innerHTML = '';
     console.log('working')
     newFlag()
+    console.log("c'est fini")
 
 })
 // Gets random integer
@@ -145,8 +146,51 @@ async function newFlag(event) {
             console.log(content)
             document.getElementById('content').innerHTML = content
             /*alert(body)*/
+            document.getElementById('correct').addEventListener('click', async function(event){
+                let score = document.getElementById('score').innerHTML
+                let scorefrac = score.substr(8,2)
+                let scoreval = parseInt(scorefrac, 10);
+                scoreval += 1
+                console.log(score)
+                console.log(scorefrac)
+                console.log(scoreval)
+                document.getElementById('score').innerHTML = ' Score: '+ scoreval 
+                let question = document.getElementById('q').innerHTML;
+                let qnumber = question.substr(11,2);
+                let qnumberint = parseInt(qnumber, 10);
+                qnumberint += 1
+                console.log(question)
+                console.log(qnumber)
+                console.log(qnumberint)
+                document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
+                if (qnumberint < 21){
+                    newFlag()
+                }
 
-            
+            })
+            document.getElementById('wrong').addEventListener('click', async function(event){
+                let question = document.getElementById('q').innerHTML;
+                let qnumber = question.substr(11,2);
+                let qnumberint = parseInt(qnumber, 10);
+                qnumberint += 1
+                console.log(question)
+                console.log(qnumber)
+                console.log(qnumberint)
+                document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
+                if (qnumberint < 21){
+                    newFlag()
+                }
+            })
+            /*
+            let question = document.getElementById('q').innerHTML;
+            let qnumber = question.substr(11,2);
+            let qnumberint = parseInt(qnumber, 10);
+            qnumberint += 1
+            console.log(question)
+            console.log(qnumber)
+            console.log(qnumberint)
+            document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
+            */
         }
         else {
             throw new Error("Problem Getting flag" + response.code);

@@ -105,7 +105,7 @@ div.jumbotron {
 }
 .flagContainer {
     text-align: center;
-    padding-top: 50px;
+    padding-top: 30px;
 }
 .center {
     display: block;
@@ -133,7 +133,7 @@ td {
 }
 
 .img-fluid {
-    max-height: 300px !important;
+    max-height: 250px !important;
     max-width: 100% !important;
     width: auto !important;
     height: auto !important;
