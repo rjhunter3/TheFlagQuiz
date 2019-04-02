@@ -71,6 +71,13 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
+// sleep time expects milliseconds
+function sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+
+
 /*
 document.getElementById('new').addEventListener('click', async function(event){
 */
@@ -109,37 +116,37 @@ async function newFlag(time) {
                 content += '<td>' + parse[4] + '</td>'
             } */
             if (rand == 1){
-                content += '<td><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
+                content += '<td id="correct-outer"><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
+                content += '<td id="wrong-outer1"><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
                 content += '</tr>'
                 content += '<tr>'
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[3] + '</button></td>'
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[4] + '</button></td>'
+                content += '<td id="wrong-outer2"><button class="btn btn-danger responsive-btn" id="wrong2">' + parse[3] + '</button></td>'
+                content += '<td id="wrong-outer3"><button class="btn btn-danger responsive-btn" id="wrong3">' + parse[4] + '</button></td>'
                 
             }
             else if (rand == 2){
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
-                content += '<td><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
+                content += '<td id="wrong-outer1"><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
+                content += '<td id="correct-outer"><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
                 content += '</tr>'
                 content += '<tr>'
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[3] + '</button></td>'
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[4] + '</button></td>'
+                content += '<td id="wrong-outer2"><button class="btn btn-danger responsive-btn" id="wrong2">' + parse[3] + '</button></td>'
+                content += '<td id="wrong-outer3"><button class="btn btn-danger responsive-btn" id="wrong3">' + parse[4] + '</button></td>'
             }
             else if (rand == 3){
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[3] + '</button></td>'
+                content += '<td id="wrong-outer1"><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
+                content += '<td id="wrong-outer2"><button class="btn btn-danger responsive-btn" id="wrong2">' + parse[3] + '</button></td>'
                 content += '</tr>'
                 content += '<tr>'
-                content += '<td><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[4] + '</button></td>'
+                content += '<td id="correct-outer"><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
+                content += '<td id="wrong-outer3"><button class="btn btn-danger responsive-btn" id="wrong3">' + parse[4] + '</button></td>'
             }
             else if (rand == 4){
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[4] + '</button></td>'
+                content += '<td id="wrong-outer1"><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
+                content += '<td id="wrong-outer2"><button class="btn btn-danger responsive-btn" id="wrong2">' + parse[4] + '</button></td>'
                 content += '</tr>'
                 content += '<tr>'
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[3] + '</button></td>'
-                content += '<td><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
+                content += '<td id="wrong-outer3"><button class="btn btn-danger responsive-btn" id="wrong3">' + parse[3] + '</button></td>'
+                content += '<td id="correct-outer"><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
             }
             content += '</tr>'
             content += '</table>'
@@ -167,12 +174,19 @@ async function newFlag(time) {
                     console.log(qnumber)
                     console.log(qnumberint)
                     document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
+                    /*
+                    let correct = document.getElementById('correct').innerHTML
+                    document.getElementById('correct').innerHTML = '<span style="background-color:green;">' + correct + '</span>' 
+                    document.getElementById('wrong').innerHTML += '<style="color:red;">'
+                    */
+                    let correct = document.getElementById('correct').innerHTML
+                    console.log(correct)
                     if (qnumberint < 21){
-                        newFlag(time)
+                        sleep(2000).then(() => {newFlag(time)});
                     }
                 }
             })
-            document.getElementById('wrong').addEventListener('click', async function(event){
+            function wrong(){
                 if (working == false){
                     working = true
                     let question = document.getElementById('q').innerHTML;
@@ -187,6 +201,31 @@ async function newFlag(time) {
                         newFlag(time)
                     }
                 }
+            }
+            document.getElementById('wrong').addEventListener('click', async function(event){
+                wrong()
+                /*
+                if (working == false){
+                    working = true
+                    let question = document.getElementById('q').innerHTML;
+                    let qnumber = question.substr(11,2);
+                    let qnumberint = parseInt(qnumber, 10);
+                    qnumberint += 1
+                    console.log(question)
+                    console.log(qnumber)
+                    console.log(qnumberint)
+                    document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
+                    if (qnumberint < 21){
+                        newFlag(time)
+                    }
+                }
+                */
+            })
+            document.getElementById('wrong2').addEventListener('click', async function(event){
+                wrong()
+            })
+            document.getElementById('wrong3').addEventListener('click', async function(event){
+                wrong()
             })
             console.log(time)
             /*
