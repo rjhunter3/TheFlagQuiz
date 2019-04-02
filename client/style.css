@@ -121,13 +121,15 @@ div.jumbotron {
 .table {
     padding-top: 50px;
     text-align: center !important;
-    background-color: #124168 !important
+    background-color: #124168 !important;
+    border: none !important;
 }
 td {
     text-align:center;
     height: 50px;
-    width: 150px;
+    width: 50% !important;
     color: #ffffff;
+    border-top: 0px !important;
 }
 
 .img-fluid {
@@ -139,7 +141,7 @@ td {
 .title {
     text-align: center;
     color: #ffffff;
-    padding-top: 100px;
+    padding-top: 0px;
 }
 
 

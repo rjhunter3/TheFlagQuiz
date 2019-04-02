@@ -44,9 +44,18 @@ document.getElementById('newgame').addEventListener('click', async function(even
     timer();
 })
 */
+
 document.getElementById('newGame').addEventListener('click', async function(event){
     let content = '<div class = "title">';
-    content += '<h1> Question 1/20 </h1>';
+    content += '<div class="table">'
+    content += '<table class="table">'
+    content += '<tr>'
+    content += '<td><h1> Question: 1/20 </h1></td>';
+    content += '<td><h1> Score: 0/20 </h1></td>';
+    content += '</tr>'
+    content += '</table>'
+    content += '</div>'
+    content += '<h1> Identify the Flag: </h1>'
     content += '</div>';
     document.getElementById('title').innerHTML = content;
     document.getElementById('content').innerHTML = '';
@@ -88,6 +97,7 @@ async function newFlag(event) {
             content += '<div class="table">'
             content += '<table class="table">'
             content += '<tr>'
+            /*
             if (rand == 1){
                 content += '<td>' + parse[1] + '</td>'
                 content += '<td>' + parse[2] + '</td>'
@@ -95,30 +105,39 @@ async function newFlag(event) {
                 content += '<tr>'
                 content += '<td>' + parse[3] + '</td>'
                 content += '<td>' + parse[4] + '</td>'
+            } */
+            if (rand == 1){
+                content += '<td><button class="btn btn-danger navbar-btn" id="correct">' + parse[1] + '</button></td>'
+                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[2] + '</button></td>'
+                content += '</tr>'
+                content += '<tr>'
+                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[3] + '</button></td>'
+                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[4] + '</button></td>'
+                
             }
             else if (rand == 2){
-                content += '<td>' + parse[2] + '</td>'
-                content += '<td>' + parse[1] + '</td>'
+                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[2] + '</button></td>'
+                content += '<td><button class="btn btn-danger navbar-btn" id="correct">' + parse[1] + '</button></td>'
                 content += '</tr>'
                 content += '<tr>'
-                content += '<td>' + parse[3] + '</td>'
-                content += '<td>' + parse[4] + '</td>'
+                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[3] + '</button></td>'
+                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[4] + '</button></td>'
             }
             else if (rand == 3){
-                content += '<td>' + parse[2] + '</td>'
-                content += '<td>' + parse[3] + '</td>'
+                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[2] + '</button></td>'
+                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[3] + '</button></td>'
                 content += '</tr>'
                 content += '<tr>'
-                content += '<td>' + parse[1] + '</td>'
-                content += '<td>' + parse[4] + '</td>'
+                content += '<td><button class="btn btn-danger navbar-btn" id="correct">' + parse[1] + '</button></td>'
+                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[4] + '</button></td>'
             }
             else if (rand == 4){
-                content += '<td>' + parse[2] + '</td>'
-                content += '<td>' + parse[4] + '</td>'
+                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[2] + '</button></td>'
+                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[4] + '</button></td>'
                 content += '</tr>'
                 content += '<tr>'
-                content += '<td>' + parse[3] + '</td>'
-                content += '<td>' + parse[1] + '</td>'
+                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[3] + '</button></td>'
+                content += '<td><button class="btn btn-danger navbar-btn" id="correct">' + parse[1] + '</button></td>'
             }
             content += '</tr>'
             content += '</table>'
@@ -126,6 +145,8 @@ async function newFlag(event) {
             console.log(content)
             document.getElementById('content').innerHTML = content
             /*alert(body)*/
+
+            
         }
         else {
             throw new Error("Problem Getting flag" + response.code);
