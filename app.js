@@ -37,17 +37,21 @@ app.get('/randflag', async function(req, resp){
     let numbers = []
     options.push(countryname)
     numbers.push(rand)
+    console.log(numbers)
     for (let i=0; i < 3; i++) {
         let random = getRandomInt(0,250)
+        console.log(random)
         let check = i
-        for (j in numbers) {
-            if (random == j) {
+        let arraylength = numbers.length;
+        for (let j=0; j<arraylength; j++) {
+            if (random == numbers[j]) {
                 i -= 1
             }
         }
         if (check == i) {
             numbers.push(random)
             options.push(data.Response[random].Name)
+            console.log(numbers)
         }
     }
     /*
@@ -56,6 +60,8 @@ app.get('/randflag', async function(req, resp){
     }
     */
     send = send.concat(options)
+    console.log(options)
+    console.log(numbers)
     console.log(send)
     resp.send(send)
 

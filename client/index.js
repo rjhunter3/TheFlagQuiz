@@ -60,7 +60,8 @@ document.getElementById('newGame').addEventListener('click', async function(even
     document.getElementById('title').innerHTML = content;
     document.getElementById('content').innerHTML = '';
     console.log('working')
-    newFlag()
+    let time = new Date()
+    newFlag(time)
     console.log("c'est fini")
 
 })
@@ -73,7 +74,7 @@ function getRandomInt(min, max) {
 /*
 document.getElementById('new').addEventListener('click', async function(event){
 */
-async function newFlag(event) {
+async function newFlag(time) {
     /*let response = ['response'];
     document.getElementById('content').innerHTML = response;*/
     console.log('fetching now')
@@ -144,43 +145,50 @@ async function newFlag(event) {
             content += '</table>'
             content += '</div>'
             console.log(content)
+            let working = false
             document.getElementById('content').innerHTML = content
             /*alert(body)*/
             document.getElementById('correct').addEventListener('click', async function(event){
-                let score = document.getElementById('score').innerHTML
-                let scorefrac = score.substr(8,2)
-                let scoreval = parseInt(scorefrac, 10);
-                scoreval += 1
-                console.log(score)
-                console.log(scorefrac)
-                console.log(scoreval)
-                document.getElementById('score').innerHTML = ' Score: '+ scoreval 
-                let question = document.getElementById('q').innerHTML;
-                let qnumber = question.substr(11,2);
-                let qnumberint = parseInt(qnumber, 10);
-                qnumberint += 1
-                console.log(question)
-                console.log(qnumber)
-                console.log(qnumberint)
-                document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
-                if (qnumberint < 21){
-                    newFlag()
+                if (working == false){
+                    working = true
+                    let score = document.getElementById('score').innerHTML
+                    let scorefrac = score.substr(8,2)
+                    let scoreval = parseInt(scorefrac, 10);
+                    scoreval += 1
+                    console.log(score)
+                    console.log(scorefrac)
+                    console.log(scoreval)
+                    document.getElementById('score').innerHTML = ' Score: '+ scoreval 
+                    let question = document.getElementById('q').innerHTML;
+                    let qnumber = question.substr(11,2);
+                    let qnumberint = parseInt(qnumber, 10);
+                    qnumberint += 1
+                    console.log(question)
+                    console.log(qnumber)
+                    console.log(qnumberint)
+                    document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
+                    if (qnumberint < 21){
+                        newFlag(time)
+                    }
                 }
-
             })
             document.getElementById('wrong').addEventListener('click', async function(event){
-                let question = document.getElementById('q').innerHTML;
-                let qnumber = question.substr(11,2);
-                let qnumberint = parseInt(qnumber, 10);
-                qnumberint += 1
-                console.log(question)
-                console.log(qnumber)
-                console.log(qnumberint)
-                document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
-                if (qnumberint < 21){
-                    newFlag()
+                if (working == false){
+                    working = true
+                    let question = document.getElementById('q').innerHTML;
+                    let qnumber = question.substr(11,2);
+                    let qnumberint = parseInt(qnumber, 10);
+                    qnumberint += 1
+                    console.log(question)
+                    console.log(qnumber)
+                    console.log(qnumberint)
+                    document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
+                    if (qnumberint < 21){
+                        newFlag(time)
+                    }
                 }
             })
+            console.log(time)
             /*
             let question = document.getElementById('q').innerHTML;
             let qnumber = question.substr(11,2);
