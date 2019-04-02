@@ -44,8 +44,10 @@ app.get('/randflag', async function(req, resp){
         let check = i
         let arraylength = numbers.length;
         for (let j=0; j<arraylength; j++) {
+            console.log(numbers[j])
             if (random == numbers[j]) {
                 i -= 1
+                console.log('### LOOK HERE ###')
             }
         }
         if (check == i) {

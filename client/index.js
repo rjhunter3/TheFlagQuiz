@@ -109,37 +109,37 @@ async function newFlag(time) {
                 content += '<td>' + parse[4] + '</td>'
             } */
             if (rand == 1){
-                content += '<td><button class="btn btn-danger navbar-btn" id="correct">' + parse[1] + '</button></td>'
-                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[2] + '</button></td>'
+                content += '<td><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
+                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
                 content += '</tr>'
                 content += '<tr>'
-                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[3] + '</button></td>'
-                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[4] + '</button></td>'
+                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[3] + '</button></td>'
+                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[4] + '</button></td>'
                 
             }
             else if (rand == 2){
-                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[2] + '</button></td>'
-                content += '<td><button class="btn btn-danger navbar-btn" id="correct">' + parse[1] + '</button></td>'
+                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
+                content += '<td><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
                 content += '</tr>'
                 content += '<tr>'
-                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[3] + '</button></td>'
-                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[4] + '</button></td>'
+                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[3] + '</button></td>'
+                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[4] + '</button></td>'
             }
             else if (rand == 3){
-                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[2] + '</button></td>'
-                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[3] + '</button></td>'
+                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
+                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[3] + '</button></td>'
                 content += '</tr>'
                 content += '<tr>'
-                content += '<td><button class="btn btn-danger navbar-btn" id="correct">' + parse[1] + '</button></td>'
-                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[4] + '</button></td>'
+                content += '<td><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
+                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[4] + '</button></td>'
             }
             else if (rand == 4){
-                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[2] + '</button></td>'
-                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[4] + '</button></td>'
+                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
+                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[4] + '</button></td>'
                 content += '</tr>'
                 content += '<tr>'
-                content += '<td><button class="btn btn-danger navbar-btn" id="wrong">' + parse[3] + '</button></td>'
-                content += '<td><button class="btn btn-danger navbar-btn" id="correct">' + parse[1] + '</button></td>'
+                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[3] + '</button></td>'
+                content += '<td><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
             }
             content += '</tr>'
             content += '</table>'

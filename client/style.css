@@ -143,6 +143,29 @@ td {
     color: #ffffff;
     padding-top: 0px;
 }
+/*
+.navbar-fixed-top {
+    top: -70px !important; /* you'll have to figure out the exact number here 
+}
+  
+.navbar-fixed-top, .navbar-fixed-bottom {
+    position: relative !important; /* this can also be static 
+}
+*/
+.responsive-btn {
+    /*font-size: 1.25vw !important;*/
+    border-color: transparent;
+    background-color: #4e91ae !important;
+    color: #fff !important;
+    /*outline-color: transparent !important;*/
+    font-size: 14px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px !important; 
+    /*font-weight: bold !important;*/
+    max-width:85% !important;
+    white-space:normal !important;
+}
+
 
 
 
