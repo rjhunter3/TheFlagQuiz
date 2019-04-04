@@ -50,7 +50,7 @@ document.getElementById('newGame').addEventListener('click', async function(even
     content += '<div class="table">'
     content += '<table class="table">'
     content += '<tr>'
-    content += '<td><h2 id="q"> Question: 1/20 </h2></td>';
+    content += '<td><h2 id="q"> Question:      </h2></td>';
     content += '<td><h2 id="score"> Score: 0 </h2></td>';
     content += '</tr>'
     content += '</table>'
@@ -233,7 +233,21 @@ async function newFlag(time) {
             content += '</div>'
             console.log(content)
             let working = false
+
             document.getElementById('content').innerHTML = content
+            let question = document.getElementById('q').innerHTML;
+            let qnumber = question.substr(11,2);
+            let qnumberint = parseInt(qnumber, 10);
+        
+            qnumberint += 1
+            console.log(question)
+            console.log(qnumber)
+            console.log(qnumberint)
+            if (isNaN(qnumberint)){
+                qnumberint = 1
+            }
+            document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
+            
             /*alert(body)*/
             document.getElementById('correct').addEventListener('click', async function(event){
                 if (working == false){
@@ -246,6 +260,7 @@ async function newFlag(time) {
                     console.log(scorefrac)
                     console.log(scoreval)
                     document.getElementById('score').innerHTML = ' Score: '+ scoreval 
+                    /*
                     let question = document.getElementById('q').innerHTML;
                     let qnumber = question.substr(11,2);
                     let qnumberint = parseInt(qnumber, 10);
@@ -254,6 +269,7 @@ async function newFlag(time) {
                     console.log(qnumber)
                     console.log(qnumberint)
                     document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
+                    */
                     // Colouring of options after answer is given to show the correct answer
                     let correct = document.getElementById('correct').innerHTML
                     let wrong1 = document.getElementById('wrong').innerHTML
@@ -272,11 +288,15 @@ async function newFlag(time) {
                     if (qnumberint < 21){
                         sleep(2000).then(() => {newFlag(time)});
                     }
+                    else {
+                        sleep(2000).then(() => {save(time)});
+                    }
                 }
             })
             function wrong(){
                 if (working == false){
                     working = true
+                    /*
                     let question = document.getElementById('q').innerHTML;
                     let qnumber = question.substr(11,2);
                     let qnumberint = parseInt(qnumber, 10);
@@ -285,6 +305,7 @@ async function newFlag(time) {
                     console.log(qnumber)
                     console.log(qnumberint)
                     document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
+                    */
                     // Colouring of options after answer is given to show the correct answer
                     let correct = document.getElementById('correct').innerHTML
                     let wrong1 = document.getElementById('wrong').innerHTML
@@ -300,6 +321,9 @@ async function newFlag(time) {
                         /*
                         newFlag(time)
                         */
+                    }
+                    else {
+                        sleep(2000).then(() => {save(time)});
                     }
                 }
             }
@@ -354,6 +378,57 @@ async function newFlag(time) {
     });
     */
 };
+async function save(time) {
+    let time2 = new Date()
+    timediff = time2 - time
+    console.log(timediff)
+    let seconds = (time2 - time) /1000
+    let minutes = seconds/60
+    remSecs = seconds - (minutes * 60)
+    console.log(seconds)
+    console.log(minutes)
+    console.log(remSecs)
+    console.log('')
+    let mins = Math.floor(seconds/60);
+    let rem = Math.floor(seconds % 60);
+    if (rem.toString().length == 1) {
+        rem = '0' + rem.toString()
+    }
+    console.log(mins)
+    console.log(rem)
+    let score = document.getElementById('score').innerHTML
+    let scorefrac = score.substr(8,2)
+    let scoreval = parseInt(scorefrac, 10);
+
+    let content = '<div class = "title">';
+    content += '<div class = "heading"'
+    content += '<h2> Your Result </h2>';
+    content += '</div>';
+    content += '<div class="table">';
+    content += '<table class="table">';
+    content += '<tr>';
+    content += '<td><h2> Score (/20): </h2></td>';
+    content += '<td><h2> Time (mins:secs): </h2></td>';
+    content += '</tr>';
+    content += '<tr>';
+    content += '<td><h2 id="score">' + scoreval + '</h2></td>';
+    content += '<td><h2 id="time">' + mins + ':' + rem + '</h2></td>';
+    content += '</tr>';
+    content += '</table>';
+    content += '</div>';
+    content += '</div>';
+    document.getElementById('title').innerHTML = content;
+    document.getElementById('content').innerHTML = '';
+    /*
+    mins = timediff.getMinutes()
+    secs = timediff.getSeconds()
+    console.log(mins + ':' + secs)
+    */
+}
+
+
+
+
 
 document.getElementById('home').addEventListener('click', async function(event){
     console.log("I'm here")
