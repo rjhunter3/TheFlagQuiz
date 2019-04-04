@@ -285,7 +285,7 @@ async function newFlag(time) {
                     let correct = document.getElementById('correct-outer').innerHTML
                     console.log(correct)
                     */
-                    if (qnumberint < 21){
+                    if (qnumberint < 20){
                         sleep(2000).then(() => {newFlag(time)});
                     }
                     else {
@@ -316,7 +316,7 @@ async function newFlag(time) {
                     document.getElementById('wrong').innerHTML = '<span style="color:red">' + wrong1 + '</span>'
                     document.getElementById('wrong2').innerHTML = '<span style="color:red">' + wrong2 + '</span>'
                     document.getElementById('wrong3').innerHTML = '<span style="color:red">' + wrong3 + '</span>'
-                    if (qnumberint < 21){
+                    if (qnumberint < 20){
                         sleep(2000).then(() => {newFlag(time)});
                         /*
                         newFlag(time)
