@@ -1,0 +1,29 @@
+{
+    "Scores": [
+        {
+            "Name":"Bob",
+            "Score":"15",
+            "Time":"2:45"
+        },
+        {
+            "Name":"Jim",
+            "Score":"12",
+            "Time":"3:15"
+        },
+        {
+            "Name":"FlagMaster3000",
+            "Score":"20",
+            "Time":"1:03"
+        },
+        {
+            "Name":"Edgecase1",
+            "Score":"18",
+            "Time":"1:45"
+        },
+        {
+            "Name":"Edgecase2",
+            "Score":"18",
+            "Time":"1:46"
+        }
+    ]
+}

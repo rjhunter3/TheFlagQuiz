@@ -19,7 +19,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
 }
 
-// Services GET requests for random flags
+// Services GET requests for random flags and countries
 app.get('/randflag', async function(req, resp){
     console.log('hello there')
     let response = await fetch("http://countryapi.gear.host/v1/Country/getCountries")
