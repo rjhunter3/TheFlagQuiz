@@ -11,6 +11,7 @@ div.jumbotron {
     color: #ffffff;
     text-align: center;
     padding: 75px;
+    padding-top: 25px !important;
     margin-bottom: 0px;
     /*min-height: 100% !important;*/
     /*height: 100vh;*/
@@ -42,7 +43,7 @@ div.jumbotron {
 }
 
 .navbar {
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
   /*background-color: #1e50f4 !important;*/
   /*background-color: #74A3F3 !important;*/
   background-color: #4e91ae !important;
@@ -106,6 +107,7 @@ div.jumbotron {
 .flagContainer {
     text-align: center;
     padding-top: 30px;
+    padding-bottom: 50px !important;
 }
 .center {
     display: block;
@@ -119,7 +121,7 @@ div.jumbotron {
     color: #ffffff;
 }
 .table {
-    padding-top: 50px;
+    padding-top: 0px;
     text-align: center !important;
     background-color: #124168 !important;
     border: none !important;
@@ -143,6 +145,7 @@ td {
     color: #ffffff;
     padding-top: 0px;
 }
+
 /*
 .navbar-fixed-top {
     top: -70px !important; /* you'll have to figure out the exact number here 
@@ -167,7 +170,7 @@ td {
 }
 
 .heading {
-    padding-top: 100px !important;
+    padding-top: 50px !important;
     font-size: 50px !important;
 }
 
