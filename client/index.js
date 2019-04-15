@@ -402,20 +402,41 @@ async function save(time) {
 
     let content = '<div class = "title">';
     content += '<div class = "heading"'
-    content += '<h2> Your Result </h2>';
+    content += '<h2> Your Result: </h2>';
     content += '</div>';
-    content += '<div class="table">';
-    content += '<table class="table">';
+
+    /*content += '<div class = "leftrightpadding">'*/
+
+    /*content += '<div class="table">';*/
+    content += '<table class="scoretable">';
     content += '<tr>';
+    content += '<td><h2> Enter your Name: </h2></td>';
     content += '<td><h2> Score (/20): </h2></td>';
     content += '<td><h2> Time (mins:secs): </h2></td>';
     content += '</tr>';
     content += '<tr>';
+    content += '<td><div class="inputbox"><input type="text" id="name" value="user"></div></td>';
     content += '<td><h2 id="score">' + scoreval + '</h2></td>';
     content += '<td><h2 id="time">' + mins + ':' + rem + '</h2></td>';
     content += '</tr>';
     content += '</table>';
+    /*content += '</div>';*/
+    /*content += '</div>';*/
     content += '</div>';
+    content += '<div class = "title">';
+    content += '<h2> Authenticate to save your score: </h2>';
+    /*content += '<button id="btn-login" class="btn btn-primary btn-margin">'*/
+    content += '<button id="btn-login" class="btn btn-danger responsive-btn">'
+    content += 'Sign In with Auth0'
+    content += '</button>'
+    content += '<h3> Or enter code (for test purposes):</h3>'
+    content += '<div class="inputbox">'
+    content += '<input type="text" id="code">'
+    content += '</div>'
+    content += '<h3> Return home without saving: </h3>'
+    content += '<button id="gohome" class="btn btn-danger responsive-btn">'
+    content += 'No Thanks'
+    content += '</button>'
     content += '</div>';
     document.getElementById('title').innerHTML = content;
     document.getElementById('content').innerHTML = '';
@@ -424,7 +445,30 @@ async function save(time) {
     secs = timediff.getSeconds()
     console.log(mins + ':' + secs)
     */
+    document.getElementById('gohome').addEventListener('click', async function(event){
+        home()
+    })
+
+
+
+
+
+
 }
+
+async function home() {
+    console.log("I'm here")
+    let response = '<div class="jumbotron">';
+    response += '<h1>Flag Quiz</h1>';
+    response += '<p>Test your vexillological knowledge!</p>';
+    response += '</div>';
+    response += '<div class="wrapper">';
+    response += '<div class="sliding-background"></div>';
+    response += '</div>';
+    document.getElementById('title').innerHTML = ''
+    document.getElementById('content').innerHTML = response;
+}
+
 
 document.getElementById('leaderboard').addEventListener('click', async function(event){
     let content = '<div class = "title">';
@@ -436,10 +480,10 @@ document.getElementById('leaderboard').addEventListener('click', async function(
 
 })
 
-
-
 document.getElementById('home').addEventListener('click', async function(event){
     console.log("I'm here")
+    home()
+    /*
     let response = '<div class="jumbotron">';
     response += '<h1>Flag Quiz</h1>';
     response += '<p>Test your vexillological knowledge!</p>';
@@ -449,7 +493,12 @@ document.getElementById('home').addEventListener('click', async function(event){
     response += '</div>';
     document.getElementById('title').innerHTML = ''
     document.getElementById('content').innerHTML = response;
+    */
 })
+
+
+
+
 
 
 /*$('.nav navbar-nav navbar-right').on('click', 'a', function(e){

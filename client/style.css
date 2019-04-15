@@ -174,8 +174,26 @@ td {
     font-size: 50px !important;
 }
 
+.leftrightpadding {
+    padding-left: 200px !important;
+    padding-right: 200px !important;
+}
 
+.inputbox {
+    color: black !important;
+}
 
+table.scoretable {
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
+table.scoretable td {
+    text-align:center;
+    height: 50px;
+    width: 33% !important;
+    color: #ffffff;
+    border-top: 0px !important;
+}
 /*
 .green-btn {
     /*font-size: 1.25vw !important;
