@@ -449,11 +449,12 @@ async function save(time) {
         home()
     })
     /*Auth0 login code*/
+    /*
     console.log('AUTH')
     var idToken;
     var accessToken;
     var expiresAt;
-      
+    
     var webAuth = new auth0.WebAuth({
         domain: 'dev-3vwxnh5c.auth0.com',
         clientID: '3ftlZ2VGXN7TfR08Fw4c36m495DcKuI4',
@@ -461,7 +462,8 @@ async function save(time) {
         scope: 'openid',
         redirectUri: window.location.href
     });
-      
+    
+    */
     var loginBtn = document.getElementById('btn-login');
       
     loginBtn.addEventListener('click', function(e) {
@@ -469,7 +471,7 @@ async function save(time) {
         webAuth.authorize();
         console.log('LOGIN')
     });
-    
+    /*
     var loginStatus = document.querySelector('.container h4');
     var loginView = document.getElementById('login-view');
     var homeView = document.getElementById('home-view');
@@ -568,7 +570,7 @@ async function save(time) {
         handleAuthentication();
     }
 
-    
+    */
 
 
 
@@ -614,6 +616,65 @@ document.getElementById('home').addEventListener('click', async function(event){
     */
 })
 
+
+var idToken;
+var accessToken;
+var expiresAt;
+var webAuth = new auth0.WebAuth({
+    domain: 'dev-3vwxnh5c.auth0.com',
+    clientID: '3ftlZ2VGXN7TfR08Fw4c36m495DcKuI4',
+    responseType: 'token id_token',
+    scope: 'openid',
+    redirectUri: window.location.href
+});
+
+window.addEventListener('load', function() {
+    /*
+    function isAuthenticated() {
+        // Check whether the current time is past the
+        // Access Token's expiry time
+        console.log('isAuth')
+        var expiration = parseInt(expiresAt) || 0;
+        return localStorage.getItem('isLoggedIn') === 'true' && new Date().getTime() < expiration;
+    }
+    */
+    function handleAuthentication() {
+        console.log('handleAuth')
+        webAuth.parseHash(function(err, authResult) {
+        if (authResult && authResult.accessToken && authResult.idToken) {
+            window.location.hash = '';
+            localLogin(authResult);
+        } else if (err) {
+            console.log(err);
+            alert(
+            'Error: ' + err.error + '. Check the console for further details.'
+            );
+        }
+        });
+    }
+    function localLogin(authResult) {
+        console.log('localLogin')
+        // Set isLoggedIn flag in localStorage
+        localStorage.setItem('isLoggedIn', 'true');
+        // Set the time that the access token will expire at
+        expiresAt = JSON.stringify(
+        authResult.expiresIn * 1000 + new Date().getTime()
+        );
+        accessToken = authResult.accessToken;
+        idToken = authResult.idToken;
+
+    } 
+    console.log('Here')
+    handleAuthentication()
+    /*
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+        console.log('LOGGED IN')
+    }
+    if (isAuthenticated()) {
+        console.log('You are logged in!');
+    }
+    */
+})
 /*
 window.addEventListener('load', function() {
     console.log('AUTH')
