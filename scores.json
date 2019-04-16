@@ -2,26 +2,31 @@
     "Scores": [
         {
             "Name":"Bob",
+            "Rank":"4",
             "Score":"15",
             "Time":"2:45"
         },
         {
             "Name":"Jim",
+            "Rank":"5",
             "Score":"12",
             "Time":"3:15"
         },
         {
             "Name":"FlagMaster3000",
+            "Rank":"1",
             "Score":"20",
             "Time":"1:03"
         },
         {
             "Name":"Edgecase1",
+            "Rank":"2",
             "Score":"18",
             "Time":"1:45"
         },
         {
             "Name":"Edgecase2",
+            "Rank":"3",
             "Score":"18",
             "Time":"1:46"
         }

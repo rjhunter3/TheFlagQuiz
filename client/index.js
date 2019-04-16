@@ -448,134 +448,39 @@ async function save(time) {
     document.getElementById('gohome').addEventListener('click', async function(event){
         home()
     })
+
+
     /*Auth0 login code*/
-    /*
-    console.log('AUTH')
-    var idToken;
-    var accessToken;
-    var expiresAt;
-    
-    var webAuth = new auth0.WebAuth({
-        domain: 'dev-3vwxnh5c.auth0.com',
-        clientID: '3ftlZ2VGXN7TfR08Fw4c36m495DcKuI4',
-        responseType: 'token id_token',
-        scope: 'openid',
-        redirectUri: window.location.href
-    });
-    
-    */
+
     var loginBtn = document.getElementById('btn-login');
       
     loginBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        webAuth.authorize();
+        /*webAuth.authorize();*/
         console.log('LOGIN')
-    });
-    /*
-    var loginStatus = document.querySelector('.container h4');
-    var loginView = document.getElementById('login-view');
-    var homeView = document.getElementById('home-view');
-    
-    // buttons and event listeners
-    var homeViewBtn = document.getElementById('btn-home-view');
-    var loginBtn = document.getElementById('btn-login');
-    var logoutBtn = document.getElementById('btn-logout');
-    
-    homeViewBtn.addEventListener('click', function() {
-        homeView.style.display = 'inline-block';
-        loginView.style.display = 'none';
-    });
-    
-    logoutBtn.addEventListener('click', logout);
-    
-    function handleAuthentication() {
-        webAuth.parseHash(function(err, authResult) {
-        if (authResult && authResult.accessToken && authResult.idToken) {
-            window.location.hash = '';
-            localLogin(authResult);
-            loginBtn.style.display = 'none';
-            homeView.style.display = 'inline-block';
-        } else if (err) {
-            homeView.style.display = 'inline-block';
-            console.log(err);
-            alert(
-            'Error: ' + err.error + '. Check the console for further details.'
-            );
-        }
-        displayButtons();
-        });
-    }
-    
-    function localLogin(authResult) {
-        // Set isLoggedIn flag in localStorage
-        localStorage.setItem('isLoggedIn', 'true');
-        // Set the time that the access token will expire at
-        expiresAt = JSON.stringify(
-        authResult.expiresIn * 1000 + new Date().getTime()
-        );
-        accessToken = authResult.accessToken;
-        idToken = authResult.idToken;
-        alert('Login Test 1')
-    } 
-    
-    function renewTokens() {
-        webAuth.checkSession({}, (err, authResult) => {
-        if (authResult && authResult.accessToken && authResult.idToken) {
-            localLogin(authResult);
-        } else if (err) {
-            alert(
-            'Could not get a new token '  + err.error + ':' + err.error_description + '.'
-            );
-            logout();
-        }
-        displayButtons();
-        });
-    }
-    
-    function logout() {
-        // Remove isLoggedIn flag from localStorage
-        localStorage.removeItem('isLoggedIn');
-        // Remove tokens and expiry time
-        accessToken = '';
-        idToken = '';
-        expiresAt = 0;
-        displayButtons();
-    }
-    
-    function isAuthenticated() {
-        // Check whether the current time is past the
-        // Access Token's expiry time
-        var expiration = parseInt(expiresAt) || 0;
-        return localStorage.getItem('isLoggedIn') === 'true' && new Date().getTime() < expiration;
-    }
-    
-    function displayButtons() {
-        if (isAuthenticated()) {
-            loginBtn.style.display = 'none';
-            logoutBtn.style.display = 'inline-block';
-            loginStatus.innerHTML = 'You are logged in!';
-            console.log('LOGGED IN BOIS')
-            alert('Logged in now')
-        } else {
-            loginBtn.style.display = 'inline-block';
-            logoutBtn.style.display = 'none';
-            loginStatus.innerHTML =
-            'You are not logged in! Please log in to continue.';
-        }
-    }
-    if (localStorage.getItem('isLoggedIn') === 'true') {
-        renewTokens();
-        alert('Login Test 2')
-    } else {
-        handleAuthentication();
-    }
 
-    */
+        data = document.getElementById('name').value + scoreval + seconds
+        localStorage.setItem(data, document.getElementById('name').value + scoreval + seconds)
+        console.log(data)
+        console.log(localStorage.getItem(data))
+
+        let obj = {
+            table: []
+        };
+        obj.table.push({Name: document.getElementById('name').value, Score: scoreval, Time: seconds});
+
+        let json = JSON.stringify(obj);
+        const fs = require('fs');
+        fs.writeFile('data.json', json, 'utf8', callback); 
 
 
+
+    });    
 
 }
+async function send() {
 
+}
 async function home() {
     console.log("I'm here")
     let response = '<div class="jumbotron">';
@@ -616,7 +521,7 @@ document.getElementById('home').addEventListener('click', async function(event){
     */
 })
 
-
+var data;
 var idToken;
 var accessToken;
 var expiresAt;
@@ -625,7 +530,7 @@ var webAuth = new auth0.WebAuth({
     clientID: '3ftlZ2VGXN7TfR08Fw4c36m495DcKuI4',
     responseType: 'token id_token',
     scope: 'openid',
-    redirectUri: window.location.href
+    redirectUri: window.location.href //Add POST request address here? and move this stuff back
 });
 
 window.addEventListener('load', function() {
@@ -666,6 +571,8 @@ window.addEventListener('load', function() {
     } 
     console.log('Here')
     handleAuthentication()
+    console.log(data)
+    console.log(localStorage.getItem(data))
     /*
     if (localStorage.getItem('isLoggedIn') === 'true') {
         console.log('LOGGED IN')
