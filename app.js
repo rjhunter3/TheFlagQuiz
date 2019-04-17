@@ -114,6 +114,7 @@ app.post('/result', function (req, resp){
     let time = result.slice(pos2 + 1)
 
     score = parseInt(score)
+    time = parseInt(time)
 
     console.log(req.body);
     console.log(name);

@@ -449,7 +449,7 @@ async function save(time) {
         home()
     })
 
-    let scoretime = mins + ':' + rem
+    //let scoretime = mins + ':' + rem
 
     /*Auth0 login code*/
     /*
@@ -480,7 +480,7 @@ async function save(time) {
         });
         */
         //const state = getRandomBytes(32); // Assume that this method will give you 32 bytes
-        const state = document.getElementById('name').value + '.' + scoreval + '.' + scoretime
+        const state = document.getElementById('name').value + '.' + scoreval + '.' + seconds
         localStorage[state] = { data: '/somepath' };
         webAuth.authorize({
             state: state
@@ -593,11 +593,18 @@ document.getElementById('leaderboard').addEventListener('click', async function(
             content += '<td><h3> Time (mins:secs): </h3></td>';
             content += '</tr>';
             for (i = 0; i < parse.length; i++) {
+                //let minutes = parse[i].Time/60
+                //let remSecs = seconds - (minutes * 60)
+                let mins = Math.floor(parse[i].Time/60);
+                let rem = Math.floor(parse[i].Time % 60);
+                if (rem.toString().length == 1) {
+                    rem = '0' + rem.toString()
+                }
                 content += '<tr>'
                 content += '<td><h4>' + parse[i].Rank + '</h4></td>'
                 content += '<td><h4>' + parse[i].Name + '</h4></td>'
                 content += '<td><h4>' + parse[i].Score + '</h4></td>'
-                content += '<td><h4>' + parse[i].Time + '</h4></td>'
+                content += '<td><h4>' + mins + ':' + rem + '</h4></td>'
                 content += '</tr>'
             }
             content += '</table>'
