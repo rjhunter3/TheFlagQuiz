@@ -61,7 +61,8 @@ document.getElementById('newGame').addEventListener('click', async function(even
     document.getElementById('content').innerHTML = '';
     console.log('working')
     let time = new Date()
-    newFlag(time)
+    let flaglist = []
+    newFlag(time, flaglist)
     console.log("c'est fini")
 
 })
@@ -81,7 +82,7 @@ function sleep (time) {
 /*
 document.getElementById('new').addEventListener('click', async function(event){
 */
-async function newFlag(time) {
+async function newFlag(time, flaglist) {
     /*let response = ['response'];
     document.getElementById('content').innerHTML = response;*/
     console.log('fetching now')
@@ -95,274 +96,292 @@ async function newFlag(time) {
             let body = await response.text();
             let parse = JSON.parse(body)
             console.log(parse[0])
-            // Right answer position
-            let rand = getRandomInt(1,5)
+            console.log(flaglist)
+            if (flaglist.includes(parse[0])){
+                newFlag(time, flaglist)
+                alert("HERE")
+            }
+            else {
+                flaglist.push(parse[0])
+                // Right answer position
+                let rand = getRandomInt(1,5)
 
-            /*let flagJSON = JSON.parse(body);
-            console.log(flagJSON)*/
-            let content = '<div class="flagContainer">'
-            content += '<img class="img-fluid" src=' + parse[0] + '>';
-            content += '</div>';
-            content += '<div class="table">'
-            content += '<table class="table">'
-            content += '<tr>'
-            /*
-            if (rand == 1){
-                content += '<td>' + parse[1] + '</td>'
-                content += '<td>' + parse[2] + '</td>'
-                content += '</tr>'
-                content += '<tr>'
-                content += '<td>' + parse[3] + '</td>'
-                content += '<td>' + parse[4] + '</td>'
-            } */
-            if (rand == 1){
-                /*
-                content += '<div id="correct-outer">'
-                */
-                content += '<td><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
-                /*
-                content += '</div>'
-                content += '<div id="wrong-outer1">'
-                */
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
-                /*
-                content += '</div>'
-                */
-                content += '</tr>'
+                /*let flagJSON = JSON.parse(body);
+                console.log(flagJSON)*/
+                let content = '<div class="flagContainer">'
+                content += '<img class="img-fluid" src=' + parse[0] + '>';
+                content += '</div>';
+                content += '<div class="table">'
+                content += '<table class="table">'
                 content += '<tr>'
                 /*
-                content += '<div id="wrong-outer2">'
-                */
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong2">' + parse[3] + '</button></td>'
-                /*
-                content += '</div>'
-                content += '<div id="wrong-outer3">'
-                */
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong3">' + parse[4] + '</button></td>'
-                /*
-                content += '</div>'
-                */
-                
-            }
-            else if (rand == 2){
-                /*
-                content += '<div id="wrong-outer1">'
-                */
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
-                /*
-                content += '</div>'
-                content += '<div id="correct-outer">'
-                */
-                content += '<td><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
-                /*
-                content += '</div>'
-                */
-                content += '</tr>'
-                content += '<tr>'
-                /*
-                content += '<div id="wrong-outer2">'
-                */
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong2">' + parse[3] + '</button></td>'
-                /*
-                content += '</div>'
-                content += '<div id="wrong-outer3">'
-                */
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong3">' + parse[4] + '</button></td>'
-                /*
-                content += '</div>'
-                */
-            }
-            else if (rand == 3){
-                /*
-                content += '<div id="wrong-outer1">'
-                */
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
-                /*
-                content += '</div>'
-                content += '<div id="wrong-outer2">'
-                */
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong2">' + parse[3] + '</button></td>'
-                /*
-                content += '</div>'
-                */
-                content += '</tr>'
-                content += '<tr>'
-                /*
-                content += '<div id="correct-outer">'
-                */
-                content += '<td><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
-                /*
-                content += '</div>'
-                content += '<div id="wrong-outer3">'
-                */
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong3">' + parse[4] + '</button></td>'
-                /*
-                content += '</div>'
-                */
-            }
-            else if (rand == 4){
-                /*
-                content += '<div id="wrong-outer1">'
-                */
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
-                /*
-                content += '</div>'
-                content += '<div id="wrong-outer2">'
-                */
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong2">' + parse[4] + '</button></td>'
-                /*
-                content += '</div>'
-                */
-                content += '</tr>'
-                content += '<tr>'
-                /*
-                content += '<div id="wrong-outer3">'
-                */
-                content += '<td><button class="btn btn-danger responsive-btn" id="wrong3">' + parse[3] + '</button></td>'
-                /*
-                content += '</div>'
-                content += '<div id="correct-outer">'
-                */
-                content += '<td><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
-                /*
-                content += '</div>'
-                */
-            }
-            content += '</tr>'
-            content += '</table>'
-            content += '</div>'
-            console.log(content)
-            let working = false
-
-            document.getElementById('content').innerHTML = content
-            let question = document.getElementById('q').innerHTML;
-            let qnumber = question.substr(11,2);
-            let qnumberint = parseInt(qnumber, 10);
-        
-            qnumberint += 1
-            console.log(question)
-            console.log(qnumber)
-            console.log(qnumberint)
-            if (isNaN(qnumberint)){
-                qnumberint = 1
-            }
-            document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
-            
-            /*alert(body)*/
-            document.getElementById('correct').addEventListener('click', async function(event){
-                if (working == false){
-                    working = true
-                    let score = document.getElementById('score').innerHTML
-                    let scorefrac = score.substr(8,2)
-                    let scoreval = parseInt(scorefrac, 10);
-                    scoreval += 1
-                    console.log(score)
-                    console.log(scorefrac)
-                    console.log(scoreval)
-                    document.getElementById('score').innerHTML = ' Score: '+ scoreval 
+                if (rand == 1){
+                    content += '<td>' + parse[1] + '</td>'
+                    content += '<td>' + parse[2] + '</td>'
+                    content += '</tr>'
+                    content += '<tr>'
+                    content += '<td>' + parse[3] + '</td>'
+                    content += '<td>' + parse[4] + '</td>'
+                } */
+                if (rand == 1){
                     /*
-                    let question = document.getElementById('q').innerHTML;
-                    let qnumber = question.substr(11,2);
-                    let qnumberint = parseInt(qnumber, 10);
-                    qnumberint += 1
-                    console.log(question)
-                    console.log(qnumber)
-                    console.log(qnumberint)
-                    document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
+                    content += '<div id="correct-outer">'
                     */
-                    // Colouring of options after answer is given to show the correct answer
-                    let correct = document.getElementById('correct').innerHTML
-                    let wrong1 = document.getElementById('wrong').innerHTML
-                    let wrong2 = document.getElementById('wrong2').innerHTML
-                    let wrong3 = document.getElementById('wrong3').innerHTML
-                    console.log(correct)
-                    document.getElementById('correct').innerHTML = '<span style="color:green">' + correct + '</span>' 
-                    document.getElementById('wrong').innerHTML = '<span style="color:red">' + wrong1 + '</span>'
-                    document.getElementById('wrong2').innerHTML = '<span style="color:red">' + wrong2 + '</span>'
-                    document.getElementById('wrong3').innerHTML = '<span style="color:red">' + wrong3 + '</span>'
+                    content += '<td><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
+                    /*
+                    content += '</div>'
+                    content += '<div id="wrong-outer1">'
+                    */
+                    content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
+                    /*
+                    content += '</div>'
+                    */
+                    content += '</tr>'
+                    content += '<tr>'
+                    /*
+                    content += '<div id="wrong-outer2">'
+                    */
+                    content += '<td><button class="btn btn-danger responsive-btn" id="wrong2">' + parse[3] + '</button></td>'
+                    /*
+                    content += '</div>'
+                    content += '<div id="wrong-outer3">'
+                    */
+                    content += '<td><button class="btn btn-danger responsive-btn" id="wrong3">' + parse[4] + '</button></td>'
+                    /*
+                    content += '</div>'
+                    */
                     
-                    /*
-                    let correct = document.getElementById('correct-outer').innerHTML
-                    console.log(correct)
-                    */
-                    if (qnumberint < 20){
-                        sleep(2000).then(() => {newFlag(time)});
-                    }
-                    else {
-                        sleep(2000).then(() => {save(time)});
-                    }
                 }
-            })
-            function wrong(){
-                if (working == false){
-                    working = true
+                else if (rand == 2){
                     /*
-                    let question = document.getElementById('q').innerHTML;
-                    let qnumber = question.substr(11,2);
-                    let qnumberint = parseInt(qnumber, 10);
+                    content += '<div id="wrong-outer1">'
+                    */
+                    content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
+                    /*
+                    content += '</div>'
+                    content += '<div id="correct-outer">'
+                    */
+                    content += '<td><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
+                    /*
+                    content += '</div>'
+                    */
+                    content += '</tr>'
+                    content += '<tr>'
+                    /*
+                    content += '<div id="wrong-outer2">'
+                    */
+                    content += '<td><button class="btn btn-danger responsive-btn" id="wrong2">' + parse[3] + '</button></td>'
+                    /*
+                    content += '</div>'
+                    content += '<div id="wrong-outer3">'
+                    */
+                    content += '<td><button class="btn btn-danger responsive-btn" id="wrong3">' + parse[4] + '</button></td>'
+                    /*
+                    content += '</div>'
+                    */
+                }
+                else if (rand == 3){
+                    /*
+                    content += '<div id="wrong-outer1">'
+                    */
+                    content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
+                    /*
+                    content += '</div>'
+                    content += '<div id="wrong-outer2">'
+                    */
+                    content += '<td><button class="btn btn-danger responsive-btn" id="wrong2">' + parse[3] + '</button></td>'
+                    /*
+                    content += '</div>'
+                    */
+                    content += '</tr>'
+                    content += '<tr>'
+                    /*
+                    content += '<div id="correct-outer">'
+                    */
+                    content += '<td><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
+                    /*
+                    content += '</div>'
+                    content += '<div id="wrong-outer3">'
+                    */
+                    content += '<td><button class="btn btn-danger responsive-btn" id="wrong3">' + parse[4] + '</button></td>'
+                    /*
+                    content += '</div>'
+                    */
+                }
+                else if (rand == 4){
+                    /*
+                    content += '<div id="wrong-outer1">'
+                    */
+                    content += '<td><button class="btn btn-danger responsive-btn" id="wrong">' + parse[2] + '</button></td>'
+                    /*
+                    content += '</div>'
+                    content += '<div id="wrong-outer2">'
+                    */
+                    content += '<td><button class="btn btn-danger responsive-btn" id="wrong2">' + parse[4] + '</button></td>'
+                    /*
+                    content += '</div>'
+                    */
+                    content += '</tr>'
+                    content += '<tr>'
+                    /*
+                    content += '<div id="wrong-outer3">'
+                    */
+                    content += '<td><button class="btn btn-danger responsive-btn" id="wrong3">' + parse[3] + '</button></td>'
+                    /*
+                    content += '</div>'
+                    content += '<div id="correct-outer">'
+                    */
+                    content += '<td><button class="btn btn-danger responsive-btn" id="correct">' + parse[1] + '</button></td>'
+                    /*
+                    content += '</div>'
+                    */
+                }
+                content += '</tr>'
+                content += '</table>'
+                content += '</div>'
+                console.log(content)
+                let working = false
+
+                document.getElementById('content').innerHTML = content
+                let question = document.getElementById('q').innerHTML;
+                let qnumber = question.substr(11,2);
+                let qnumberint = parseInt(qnumber, 10);
+                /*if (cleared){
                     qnumberint += 1
                     console.log(question)
                     console.log(qnumber)
                     console.log(qnumberint)
+                    if (isNaN(qnumberint)){
+                        qnumberint = 1
+                    }
                     document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
-                    */
-                    // Colouring of options after answer is given to show the correct answer
-                    let correct = document.getElementById('correct').innerHTML
-                    let wrong1 = document.getElementById('wrong').innerHTML
-                    let wrong2 = document.getElementById('wrong2').innerHTML
-                    let wrong3 = document.getElementById('wrong3').innerHTML
-                    console.log(correct)
-                    document.getElementById('correct').innerHTML = '<span style="color:green">' + correct + '</span>' 
-                    document.getElementById('wrong').innerHTML = '<span style="color:red">' + wrong1 + '</span>'
-                    document.getElementById('wrong2').innerHTML = '<span style="color:red">' + wrong2 + '</span>'
-                    document.getElementById('wrong3').innerHTML = '<span style="color:red">' + wrong3 + '</span>'
-                    if (qnumberint < 20){
-                        sleep(2000).then(() => {newFlag(time)});
+                }*/
+                
+                qnumberint += 1
+                console.log(question)
+                console.log(qnumber)
+                console.log(qnumberint)
+                if (isNaN(qnumberint)){
+                    qnumberint = 1
+                }
+                document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
+                
+                /*alert(body)*/
+                document.getElementById('correct').addEventListener('click', async function(event){
+                    if (working == false){
+                        working = true
+                        let score = document.getElementById('score').innerHTML
+                        let scorefrac = score.substr(8,2)
+                        let scoreval = parseInt(scorefrac, 10);
+                        scoreval += 1
+                        console.log(score)
+                        console.log(scorefrac)
+                        console.log(scoreval)
+                        document.getElementById('score').innerHTML = ' Score: '+ scoreval 
                         /*
-                        newFlag(time)
+                        let question = document.getElementById('q').innerHTML;
+                        let qnumber = question.substr(11,2);
+                        let qnumberint = parseInt(qnumber, 10);
+                        qnumberint += 1
+                        console.log(question)
+                        console.log(qnumber)
+                        console.log(qnumberint)
+                        document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
                         */
+                        // Colouring of options after answer is given to show the correct answer
+                        let correct = document.getElementById('correct').innerHTML
+                        let wrong1 = document.getElementById('wrong').innerHTML
+                        let wrong2 = document.getElementById('wrong2').innerHTML
+                        let wrong3 = document.getElementById('wrong3').innerHTML
+                        console.log(correct)
+                        document.getElementById('correct').innerHTML = '<span style="color:green">' + correct + '</span>' 
+                        document.getElementById('wrong').innerHTML = '<span style="color:red">' + wrong1 + '</span>'
+                        document.getElementById('wrong2').innerHTML = '<span style="color:red">' + wrong2 + '</span>'
+                        document.getElementById('wrong3').innerHTML = '<span style="color:red">' + wrong3 + '</span>'
+                        
+                        /*
+                        let correct = document.getElementById('correct-outer').innerHTML
+                        console.log(correct)
+                        */
+                        if (qnumberint < 20){
+                            sleep(2000).then(() => {newFlag(time,flaglist)});
+                        }
+                        else {
+                            sleep(2000).then(() => {save(time)});
+                        }
                     }
-                    else {
-                        sleep(2000).then(() => {save(time)});
+                })
+                function wrong(){
+                    if (working == false){
+                        working = true
+                        /*
+                        let question = document.getElementById('q').innerHTML;
+                        let qnumber = question.substr(11,2);
+                        let qnumberint = parseInt(qnumber, 10);
+                        qnumberint += 1
+                        console.log(question)
+                        console.log(qnumber)
+                        console.log(qnumberint)
+                        document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
+                        */
+                        // Colouring of options after answer is given to show the correct answer
+                        let correct = document.getElementById('correct').innerHTML
+                        let wrong1 = document.getElementById('wrong').innerHTML
+                        let wrong2 = document.getElementById('wrong2').innerHTML
+                        let wrong3 = document.getElementById('wrong3').innerHTML
+                        console.log(correct)
+                        document.getElementById('correct').innerHTML = '<span style="color:green">' + correct + '</span>' 
+                        document.getElementById('wrong').innerHTML = '<span style="color:red">' + wrong1 + '</span>'
+                        document.getElementById('wrong2').innerHTML = '<span style="color:red">' + wrong2 + '</span>'
+                        document.getElementById('wrong3').innerHTML = '<span style="color:red">' + wrong3 + '</span>'
+                        if (qnumberint < 20){
+                            sleep(2000).then(() => {newFlag(time, flaglist)});
+                            /*
+                            newFlag(time)
+                            */
+                        }
+                        else {
+                            sleep(2000).then(() => {save(time)});
+                        }
                     }
                 }
-            }
-            document.getElementById('wrong').addEventListener('click', async function(event){
-                wrong()
+                document.getElementById('wrong').addEventListener('click', async function(event){
+                    wrong()
+                    /*
+                    if (working == false){
+                        working = true
+                        let question = document.getElementById('q').innerHTML;
+                        let qnumber = question.substr(11,2);
+                        let qnumberint = parseInt(qnumber, 10);
+                        qnumberint += 1
+                        console.log(question)
+                        console.log(qnumber)
+                        console.log(qnumberint)
+                        document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
+                        if (qnumberint < 21){
+                            newFlag(time)
+                        }
+                    }
+                    */
+                })
+                document.getElementById('wrong2').addEventListener('click', async function(event){
+                    wrong()
+                })
+                document.getElementById('wrong3').addEventListener('click', async function(event){
+                    wrong()
+                })
+                console.log(time)
                 /*
-                if (working == false){
-                    working = true
-                    let question = document.getElementById('q').innerHTML;
-                    let qnumber = question.substr(11,2);
-                    let qnumberint = parseInt(qnumber, 10);
-                    qnumberint += 1
-                    console.log(question)
-                    console.log(qnumber)
-                    console.log(qnumberint)
-                    document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
-                    if (qnumberint < 21){
-                        newFlag(time)
-                    }
-                }
+                let question = document.getElementById('q').innerHTML;
+                let qnumber = question.substr(11,2);
+                let qnumberint = parseInt(qnumber, 10);
+                qnumberint += 1
+                console.log(question)
+                console.log(qnumber)
+                console.log(qnumberint)
+                document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
                 */
-            })
-            document.getElementById('wrong2').addEventListener('click', async function(event){
-                wrong()
-            })
-            document.getElementById('wrong3').addEventListener('click', async function(event){
-                wrong()
-            })
-            console.log(time)
-            /*
-            let question = document.getElementById('q').innerHTML;
-            let qnumber = question.substr(11,2);
-            let qnumberint = parseInt(qnumber, 10);
-            qnumberint += 1
-            console.log(question)
-            console.log(qnumber)
-            console.log(qnumberint)
-            document.getElementById('q').innerHTML = ' Question: '+ qnumberint + '/20'
-            */
+            }
         }
         else {
             throw new Error("Problem Getting flag" + response.code);
