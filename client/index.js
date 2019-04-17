@@ -449,6 +449,7 @@ async function save(time) {
         home()
     })
 
+    let scoretime = mins + ':' + rem
 
     /*Auth0 login code*/
 
@@ -478,7 +479,7 @@ async function save(time) {
         });
         */
         //const state = getRandomBytes(32); // Assume that this method will give you 32 bytes
-        const state = document.getElementById('name').value +'%' + scoreval + '%' + seconds
+        const state = document.getElementById('name').value +'%' + scoreval + '%' + scoretime
         localStorage[state] = { data: '/somepath' };
         webAuth.authorize({
             state: state

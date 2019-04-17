@@ -110,6 +110,7 @@ app.post('/result', function (req, resp){
     let pos2 = result.indexOf('%',pos1 + 1)
     let score = result.slice(pos1 + 1,pos2)
     let time = result.slice(pos2 + 1)
+
     console.log(req.body);
     console.log(name);
     console.log(score);
@@ -124,11 +125,22 @@ app.post('/result', function (req, resp){
     console.log(obj)
     /*potatoes.push(pot);*/
     var obj = JSON.parse(fs.readFileSync('scores.json', 'utf8'));
-    console.log(obj)
-    console.log(obj['Scores'])
+    /*console.log(obj)
+    console.log(obj['Scores'])*/
     var scores = obj['Scores']
+    console.log(scores)
+    /*
     scores.sort(function(a,b) {
         return a.Score.localeCompare(b.Score) ? -1 : a.Time.localeCompare(b.Time);
+    })
+    */
+    scores.push({"Name":name, "Rank":0, "Score":score,"Time":time});
+    scores.sort(function (x,y) {
+        var n = y.Score - x.Score;
+        if (n !== 0) {
+            return n;
+        }
+        return x.Time - y.Time;
     })
     console.log(scores)
     /*
@@ -136,10 +148,18 @@ app.post('/result', function (req, resp){
         console.log(row)
     }
     */
-
-    obj['Scores'].push({"Name":name,"Score":score,"Time":time});
+    for (i = 0; i < scores.length; i++) {
+        scores[i].Rank = i + 1
+    }
+    console.log(scores)
+    //obj['Scores'].push({"Name":name, "Rank":0, "Score":score,"Time":time});
     console.log(obj)
+
     jsonStr = JSON.stringify(obj);
+    fs.writeFile('scores.json',jsonStr ,'utf8', function(err){
+        if (err) throw err;
+        console.log('complete')
+    })
     console.log(jsonStr)
     resp.send("Fine that worked");
 });
