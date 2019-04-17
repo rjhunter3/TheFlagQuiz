@@ -446,12 +446,17 @@ async function save(time) {
     content += '<h2> Authenticate to save your score: </h2>';
     /*content += '<button id="btn-login" class="btn btn-primary btn-margin">'*/
     content += '<button id="btn-login" class="btn btn-danger responsive-btn">'
-    content += 'Authenticate with Auth0'
+    content += 'Authenticate'
     content += '</button>'
     content += '<h3> Or enter code (for test purposes):</h3>'
-    content += '<div class="inputbox">'
-    content += '<input type="text" id="code">'
-    content += '</div>'
+    content += '<div class="submitbox">'
+    /*content += '<input type="text" id="code">'*/
+    content += '<input type="text" id="code"></div>'
+    content += '<button id="enterCode" class="btn btn-danger responsive-btn">'
+    content += 'Submit'
+    content += '</button>'
+
+    /*content += '</div>'*/
     content += '<h3> Return home without saving: </h3>'
     content += '<button id="gohome" class="btn btn-danger responsive-btn">'
     content += 'No Thanks'
@@ -466,7 +471,18 @@ async function save(time) {
     */
     document.getElementById('gohome').addEventListener('click', async function(event){
         home()
-    })
+    });
+    document.getElementById('code').addEventListener('input', async function(event){
+        console.log('INPUT FIELD')
+    });
+    document.getElementById('enterCode').addEventListener('click', async function(event){
+        console.log('Code')
+        if (document.getElementById('code').value == 'vytyxcas'){
+            const state = document.getElementById('name').value + '.' + scoreval + '.' + seconds
+            sendResult(state)
+            home()
+        }
+    });
 
     //let scoretime = mins + ':' + rem
 
@@ -644,7 +660,29 @@ document.getElementById('leaderboard').addEventListener('click', async function(
 
 
 })
-
+document.getElementById('about').addEventListener('click', async function(event){
+    let titlecontent = '<div class = "title">';
+    titlecontent += '<div class = "heading"'
+    titlecontent += '<h2> About The Flag Quiz <h2>'
+    titlecontent += '</div>'
+    titlecontent += '</div>'
+    document.getElementById('title').innerHTML = titlecontent;
+    let pagecontent = '<div class = "title">';
+    pagecontent += '<br>'
+    pagecontent += '<h3>Created as a submission for a programming summative assignment at Durham University.<h3>'
+    pagecontent += '<br>'
+    pagecontent += '<h2>Instructions:<h2>'
+    pagecontent += '<div class = listText>'
+    pagecontent += '<h3>You will be asked to identify 20 flags of various countries, chosen at random.<h3>'
+    pagecontent += '<h3>Four countries are displayed below each flag, your task is to click the country who the flag belongs to.</h3>'
+    pagecontent += '<h3>After answering the questions, you will receive a score and a time.</h3>'
+    pagecontent += '<h3>You can choose to save your name, as well as your score and time to the leaderboard, accessible on the navbar.<h3>'
+    pagecontent += '<h3>If you do save your result, you will receive a rank, based on the other results already on the leaderboard.</h3>'
+    pagecontent += '<h3>Your best set of results is saved to your name each time.</h3>'
+    pagecontent += '<h3>Press "New Game" on the navbar to begin!</h3>'
+    pagecontent += '</div>'
+    document.getElementById('content').innerHTML = pagecontent;
+})
 document.getElementById('home').addEventListener('click', async function(event){
     console.log("I'm here")
     home()
