@@ -285,7 +285,7 @@ async function newFlag(time) {
                     let correct = document.getElementById('correct-outer').innerHTML
                     console.log(correct)
                     */
-                    if (qnumberint < 2/*0*/){
+                    if (qnumberint < 20){
                         sleep(2000).then(() => {newFlag(time)});
                     }
                     else {
@@ -316,7 +316,7 @@ async function newFlag(time) {
                     document.getElementById('wrong').innerHTML = '<span style="color:red">' + wrong1 + '</span>'
                     document.getElementById('wrong2').innerHTML = '<span style="color:red">' + wrong2 + '</span>'
                     document.getElementById('wrong3').innerHTML = '<span style="color:red">' + wrong3 + '</span>'
-                    if (qnumberint < 2/*0*/){
+                    if (qnumberint < 20){
                         sleep(2000).then(() => {newFlag(time)});
                         /*
                         newFlag(time)
@@ -427,7 +427,7 @@ async function save(time) {
     content += '<h2> Authenticate to save your score: </h2>';
     /*content += '<button id="btn-login" class="btn btn-primary btn-margin">'*/
     content += '<button id="btn-login" class="btn btn-danger responsive-btn">'
-    content += 'Sign In with Auth0'
+    content += 'Authenticate with Auth0'
     content += '</button>'
     content += '<h3> Or enter code (for test purposes):</h3>'
     content += '<div class="inputbox">'
@@ -480,7 +480,7 @@ async function save(time) {
         });
         */
         //const state = getRandomBytes(32); // Assume that this method will give you 32 bytes
-        const state = document.getElementById('name').value +'%' + scoreval + '%' + scoretime
+        const state = document.getElementById('name').value + '.' + scoreval + '.' + scoretime
         localStorage[state] = { data: '/somepath' };
         webAuth.authorize({
             state: state

@@ -107,11 +107,13 @@ app.get('/randflag', async function(req, resp){
 // Handles saving the score
 app.post('/result', function (req, resp){
     const result = req.body.result;
-    let pos1 = result.indexOf('%');
+    let pos1 = result.indexOf('.');
     let name = result.slice(0, pos1)
-    let pos2 = result.indexOf('%',pos1 + 1)
+    let pos2 = result.indexOf('.',pos1 + 1)
     let score = result.slice(pos1 + 1,pos2)
     let time = result.slice(pos2 + 1)
+
+    score = parseInt(score)
 
     console.log(req.body);
     console.log(name);
@@ -140,6 +142,8 @@ app.post('/result', function (req, resp){
         if (scores[i].Name == name) {
             match = true
             if (score > scores[i].Score){
+                console.log(score)
+                console.log(scores[i].Score)
                 scores[i].Score = score
                 scores[i].Time = time
             }
