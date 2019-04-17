@@ -452,18 +452,56 @@ async function save(time) {
 
     /*Auth0 login code*/
 
+    function getRandomBytes(length) {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      
+        for (var i = 0; i < length; i++)
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+      
+        return text;
+    }
     var loginBtn = document.getElementById('btn-login');
       
     loginBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        /*webAuth.authorize();*/
+        data = 'name=' + document.getElementById('name').value +'%score=' + scoreval + '%time=' + seconds
         console.log('LOGIN')
+        /*
+        var webAuth = new auth0.WebAuth({
+            domain: 'dev-3vwxnh5c.auth0.com',
+            clientID: '3ftlZ2VGXN7TfR08Fw4c36m495DcKuI4',
+            responseType: 'token id_token',
+            scope: 'openid',
+            redirectUri: window.location.href + '?' + data //Add POST request address here? and move this stuff back
+        
+        });
+        */
+        //const state = getRandomBytes(32); // Assume that this method will give you 32 bytes
+        const state = 'name=' + document.getElementById('name').value +'%score=' + scoreval + '%time=' + seconds
+        localStorage[state] = { data: '/somepath' };
+        webAuth.authorize({
+            state: state
+        });
+        console.log(state)
+        /*
+        webAuth.authorize( {
+            
+            appState: {
+                name: document.getElementById('name').value, 
+                score: scoreval, 
+                time: seconds
+            }
+            
+        });
+        sleep(10000)
+        */
 
-        data = document.getElementById('name').value + scoreval + seconds
+        /*
         localStorage.setItem(data, document.getElementById('name').value + scoreval + seconds)
         console.log(data)
         console.log(localStorage.getItem(data))
-
+        /*
         let obj = {
             table: []
         };
@@ -472,7 +510,7 @@ async function save(time) {
         let json = JSON.stringify(obj);
         const fs = require('fs');
         fs.writeFile('data.json', json, 'utf8', callback); 
-
+        */
 
 
     });    
@@ -525,12 +563,13 @@ var data;
 var idToken;
 var accessToken;
 var expiresAt;
+
 var webAuth = new auth0.WebAuth({
     domain: 'dev-3vwxnh5c.auth0.com',
     clientID: '3ftlZ2VGXN7TfR08Fw4c36m495DcKuI4',
     responseType: 'token id_token',
     scope: 'openid',
-    redirectUri: window.location.href //Add POST request address here? and move this stuff back
+    redirectUri: window.location.href // + '?' + data //Add POST request address here? and move this stuff back
 });
 
 window.addEventListener('load', function() {
@@ -559,6 +598,14 @@ window.addEventListener('load', function() {
     }
     function localLogin(authResult) {
         console.log('localLogin')
+        //
+        /*const authRes = webAuth.parseHash();*/
+        const state = authResult.state;
+        console.log(state)
+        const olderAppState = localStorage[state];
+        console.log(olderAppState)
+        localStorage.remove(state);
+        //
         // Set isLoggedIn flag in localStorage
         localStorage.setItem('isLoggedIn', 'true');
         // Set the time that the access token will expire at
@@ -573,6 +620,9 @@ window.addEventListener('load', function() {
     handleAuthentication()
     console.log(data)
     console.log(localStorage.getItem(data))
+    console.log(name)
+    console.log(score)
+    console.log(time)
     /*
     if (localStorage.getItem('isLoggedIn') === 'true') {
         console.log('LOGGED IN')
