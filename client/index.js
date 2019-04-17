@@ -745,16 +745,21 @@ window.addEventListener('load', function() {
         sendResult(state)
         const olderAppState = localStorage[state];
         console.log(olderAppState)
+        accessToken = '';
+        idToken = '';
+        expiresAt = 0;
         //localStorage.remove(state);
         //
         // Set isLoggedIn flag in localStorage
-        localStorage.setItem('isLoggedIn', 'true');
+        //localStorage.setItem('isLoggedIn', 'true');
         // Set the time that the access token will expire at
+        /*
         expiresAt = JSON.stringify(
         authResult.expiresIn * 1000 + new Date().getTime()
         );
         accessToken = authResult.accessToken;
         idToken = authResult.idToken;
+        */
 
     } 
     console.log('Here')
