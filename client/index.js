@@ -452,7 +452,7 @@ async function save(time) {
     let scoretime = mins + ':' + rem
 
     /*Auth0 login code*/
-
+    /*
     function getRandomBytes(length) {
         var text = "";
         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -462,6 +462,7 @@ async function save(time) {
       
         return text;
     }
+    */
     var loginBtn = document.getElementById('btn-login');
       
     loginBtn.addEventListener('click', function(e) {
@@ -570,6 +571,51 @@ document.getElementById('leaderboard').addEventListener('click', async function(
     content += '</div>';
     document.getElementById('title').innerHTML = content;
     document.getElementById('content').innerHTML = '';
+    try {
+        let response = await fetch('http://127.0.01:8090/scores',
+        {
+        method: "GET",
+        });
+        if(response.ok){
+            let body = await response.text();
+            console.log('Testing')
+            console.log(body)
+            console.log(body[2])
+            let parse = JSON.parse(body)
+            console.log(parse[2])
+            console.log(parse[2].Rank)
+            let content = '<div class = "title">';
+            content += '<table class="leadertable">';
+            content += '<tr>';
+            content += '<td><h3> Rank: </h3></td>';
+            content += '<td><h3> Name: </h3></td>'; 
+            content += '<td><h3> Score (/20): </h3></td>';
+            content += '<td><h3> Time (mins:secs): </h3></td>';
+            content += '</tr>';
+            for (i = 0; i < parse.length; i++) {
+                content += '<tr>'
+                content += '<td><h4>' + parse[i].Rank + '</h4></td>'
+                content += '<td><h4>' + parse[i].Name + '</h4></td>'
+                content += '<td><h4>' + parse[i].Score + '</h4></td>'
+                content += '<td><h4>' + parse[i].Time + '</h4></td>'
+                content += '</tr>'
+            }
+            content += '</table>'
+            content += '</div>'
+            document.getElementById('content').innerHTML = content;
+
+
+        }
+        else {
+            throw new Error("problem getting scores" + response.code);
+        }
+        
+    }
+    catch (error) {
+        alert ("problem: " + error);
+    }
+
+
 
 })
 

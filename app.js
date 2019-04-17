@@ -1,6 +1,7 @@
 const express = require('express');
 const fetch = require('node-fetch');
 var bodyParser = require('body-parser');
+var fs = require('fs');
 const app = express();
 app.use(express.static('client'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -103,6 +104,7 @@ app.get('/randflag', async function(req, resp){
     */
 })
 
+// Handles saving the score
 app.post('/result', function (req, resp){
     const result = req.body.result;
     let pos1 = result.indexOf('%');
@@ -115,7 +117,6 @@ app.post('/result', function (req, resp){
     console.log(name);
     console.log(score);
     console.log(time);
-    var fs = require('fs');
     /*
     var obj;
     fs.readFile('scores.json', 'utf8', function (err, data) {
@@ -164,4 +165,11 @@ app.post('/result', function (req, resp){
     resp.send("Fine that worked");
 });
 
+// Get scores for leaderboard
+app.get('/scores', async function(req, resp){
+    var obj = JSON.parse(fs.readFileSync('scores.json', 'utf8'));
+    var scores = obj['Scores']
+    console.log(scores)
+    resp.send(scores);
+});
 module.exports = app;
