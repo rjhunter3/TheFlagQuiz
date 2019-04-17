@@ -103,4 +103,45 @@ app.get('/randflag', async function(req, resp){
     */
 })
 
+app.post('/result', function (req, resp){
+    const result = req.body.result;
+    let pos1 = result.indexOf('%');
+    let name = result.slice(0, pos1)
+    let pos2 = result.indexOf('%',pos1 + 1)
+    let score = result.slice(pos1 + 1,pos2)
+    let time = result.slice(pos2 + 1)
+    console.log(req.body);
+    console.log(name);
+    console.log(score);
+    console.log(time);
+    var fs = require('fs');
+    /*
+    var obj;
+    fs.readFile('scores.json', 'utf8', function (err, data) {
+        if (err) throw err;
+        obj = JSON.parse(data);
+    });
+    console.log(obj)
+    /*potatoes.push(pot);*/
+    var obj = JSON.parse(fs.readFileSync('scores.json', 'utf8'));
+    console.log(obj)
+    console.log(obj['Scores'])
+    var scores = obj['Scores']
+    scores.sort(function(a,b) {
+        return a.Score.localeCompare(b.Score) ? -1 : a.Time.localeCompare(b.Time);
+    })
+    console.log(scores)
+    /*
+    for (var row in obj['Scores']){
+        console.log(row)
+    }
+    */
+
+    obj['Scores'].push({"Name":name,"Score":score,"Time":time});
+    console.log(obj)
+    jsonStr = JSON.stringify(obj);
+    console.log(jsonStr)
+    resp.send("Fine that worked");
+});
+
 module.exports = app;

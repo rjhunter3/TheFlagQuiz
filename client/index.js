@@ -478,7 +478,7 @@ async function save(time) {
         });
         */
         //const state = getRandomBytes(32); // Assume that this method will give you 32 bytes
-        const state = 'name=' + document.getElementById('name').value +'%score=' + scoreval + '%time=' + seconds
+        const state = document.getElementById('name').value +'%' + scoreval + '%' + seconds
         localStorage[state] = { data: '/somepath' };
         webAuth.authorize({
             state: state
@@ -516,7 +516,36 @@ async function save(time) {
     });    
 
 }
-async function send() {
+async function sendResult(result) {
+    /*
+    let pos1 = result.indexOf('%');
+    let name = result.slice(0, pos1)
+    let pos2 = result.indexOf('%',pos1 + 1)
+    let score = result.slice(pos1 + 1,pos2)
+    let time = result.slice(pos2 + 1)
+    console.log(name)
+    console.log(score)
+    console.log(time)
+    */
+    console.log(result)
+    try {
+        let response = await fetch('http://127.0.01:8090/result',
+        {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "result=" + result
+        });
+        if(!response.ok){
+            throw new Error("problem sending results" + response.code);
+          }
+        
+    }
+    catch (error) {
+    alert ("problem: " + error);
+    }
+
 
 }
 async function home() {
@@ -559,7 +588,7 @@ document.getElementById('home').addEventListener('click', async function(event){
     */
 })
 
-var data;
+/*var data;*/
 var idToken;
 var accessToken;
 var expiresAt;
@@ -602,9 +631,10 @@ window.addEventListener('load', function() {
         /*const authRes = webAuth.parseHash();*/
         const state = authResult.state;
         console.log(state)
+        sendResult(state)
         const olderAppState = localStorage[state];
         console.log(olderAppState)
-        localStorage.remove(state);
+        //localStorage.remove(state);
         //
         // Set isLoggedIn flag in localStorage
         localStorage.setItem('isLoggedIn', 'true');
@@ -618,6 +648,7 @@ window.addEventListener('load', function() {
     } 
     console.log('Here')
     handleAuthentication()
+    /*
     console.log(data)
     console.log(localStorage.getItem(data))
     console.log(name)
