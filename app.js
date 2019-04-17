@@ -135,7 +135,26 @@ app.post('/result', function (req, resp){
         return a.Score.localeCompare(b.Score) ? -1 : a.Time.localeCompare(b.Time);
     })
     */
-    scores.push({"Name":name, "Rank":0, "Score":score,"Time":time});
+    let match = false
+    for (i = 0; i < scores.length; i++){
+        if (scores[i].Name == name) {
+            match = true
+            if (score > scores[i].Score){
+                scores[i].Score = score
+                scores[i].Time = time
+            }
+            else if (score == scores[i].Score){
+                //check time
+                if (time < scores[i].Time){
+                    scores[i].Time = time
+                }
+            }
+        }
+    }
+    if (match == false) {
+        scores.push({"Name":name, "Rank":0, "Score":score,"Time":time});
+    }
+    /*scores.push({"Name":name, "Rank":0, "Score":score,"Time":time});*/
     scores.sort(function (x,y) {
         var n = y.Score - x.Score;
         if (n !== 0) {
