@@ -477,7 +477,7 @@ async function save(time) {
     });
     document.getElementById('enterCode').addEventListener('click', async function(event){
         console.log('Code')
-        if (document.getElementById('code').value == 'vytyxcas'){
+        if (document.getElementById('code').value == 'test'){
             const state = document.getElementById('name').value + '.' + scoreval + '.' + seconds
             sendResult(state)
             home()
