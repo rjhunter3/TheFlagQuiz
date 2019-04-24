@@ -680,6 +680,7 @@ document.getElementById('about').addEventListener('click', async function(event)
     pagecontent += '<h3>If you do save your result, you will receive a rank, based on the other results already on the leaderboard.</h3>'
     pagecontent += '<h3>Your best set of results is saved to your name each time.</h3>'
     pagecontent += '<h3>Press "New Game" on the navbar to begin!</h3>'
+    pagecontent += '<br>'
     pagecontent += '</div>'
     document.getElementById('content').innerHTML = pagecontent;
 })
@@ -726,6 +727,7 @@ window.addEventListener('load', function() {
         console.log('handleAuth')
         webAuth.parseHash(function(err, authResult) {
         if (authResult && authResult.accessToken && authResult.idToken) {
+            console.log(window.location.hash)
             window.location.hash = '';
             localLogin(authResult);
         } else if (err) {

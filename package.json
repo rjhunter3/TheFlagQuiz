@@ -4,8 +4,9 @@
   "description": "Programming summative assessment 2",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "test": "jest",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +15,8 @@
     "node-fetch": "^2.3.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "jest": "^24.7.1",
+    "nodemon": "^1.18.10",
+    "supertest": "^4.0.2"
   }
 }
