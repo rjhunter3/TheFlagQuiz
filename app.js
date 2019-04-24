@@ -107,12 +107,102 @@ app.get('/randflag', async function(req, resp){
 // Handles saving the score
 app.post('/result', function (req, resp){
     const result = req.body.result;
-    let pos1 = result.indexOf('.');
-    let name = result.slice(0, pos1)
-    let pos2 = result.indexOf('.',pos1 + 1)
+    let pos0 = result.indexOf('∩');
+    let token = result.slice(0,pos0)
+    let pos1 = result.indexOf('∩', pos0 + 1);
+    let name = result.slice(pos0 + 1, pos1)
+    let pos2 = result.indexOf('∩',pos1 + 1)
     let score = result.slice(pos1 + 1,pos2)
+    let pos3 = result.indexOf('∩',pos2 + 1)
     let time = result.slice(pos2 + 1)
+    //let token = result.slice(pos3 + 1)
+    console.log(token)
+    console.log(name)
+    console.log(score)
+    console.log(time)
 
+    //jwt.verify(token, 'l0LDj56zXjqWhAl7KxWyJwu7nutuM-c6pM71rEJ4kXpHuY5YJvr_1wwX5E18Afe9', function(err, decoded){
+    if(token=='Authenticated' || token=='testcode'){
+        score = parseInt(score);
+        time = parseInt(time)
+
+        console.log(req.body);
+        console.log(name);
+        console.log(score);
+        console.log(time);
+        /*
+        var obj;
+        fs.readFile('scores.json', 'utf8', function (err, data) {
+            if (err) throw err;
+            obj = JSON.parse(data);
+        });
+        console.log(obj)
+        /*potatoes.push(pot);*/
+        var obj = JSON.parse(fs.readFileSync('scores.json', 'utf8'));
+        /*console.log(obj)
+        console.log(obj['Scores'])*/
+        var scores = obj['Scores']
+        console.log(scores)
+        /*
+        scores.sort(function(a,b) {
+            return a.Score.localeCompare(b.Score) ? -1 : a.Time.localeCompare(b.Time);
+        })
+        */
+        let match = false
+        for (i = 0; i < scores.length; i++){
+            if (scores[i].Name == name) {
+                match = true
+                if (score > scores[i].Score){
+                    console.log(score)
+                    console.log(scores[i].Score)
+                    scores[i].Score = score
+                    scores[i].Time = time
+                }
+                else if (score == scores[i].Score){
+                    //check time
+                    if (time < scores[i].Time){
+                        scores[i].Time = time
+                    }
+                }
+            }
+        }
+        if (match == false) {
+            scores.push({"Name":name, "Rank":0, "Score":score,"Time":time});
+        }
+        /*scores.push({"Name":name, "Rank":0, "Score":score,"Time":time});*/
+        scores.sort(function (x,y) {
+            var n = y.Score - x.Score;
+            if (n !== 0) {
+                return n;
+            }
+            return x.Time - y.Time;
+        })
+        console.log(scores)
+        /*
+        for (var row in obj['Scores']){
+            console.log(row)
+        }
+        */
+        for (i = 0; i < scores.length; i++) {
+            scores[i].Rank = i + 1
+        }
+        console.log(scores)
+        //obj['Scores'].push({"Name":name, "Rank":0, "Score":score,"Time":time});
+        console.log(obj)
+    
+        jsonStr = JSON.stringify(obj);
+        fs.writeFile('scores.json',jsonStr ,'utf8', function(err){
+            if (err) throw err;
+            console.log('complete')
+        })
+        console.log(jsonStr)
+        resp.send("Fine that worked");
+
+    } else {
+    resp.sendStatus(403);
+    }
+    //});
+    /*
     score = parseInt(score)
     time = parseInt(time)
 
@@ -128,16 +218,17 @@ app.post('/result', function (req, resp){
     });
     console.log(obj)
     /*potatoes.push(pot);*/
-    var obj = JSON.parse(fs.readFileSync('scores.json', 'utf8'));
+    //var obj = JSON.parse(fs.readFileSync('scores.json', 'utf8'));
     /*console.log(obj)
     console.log(obj['Scores'])*/
-    var scores = obj['Scores']
-    console.log(scores)
+    //var scores = obj['Scores']
+    //console.log(scores)
     /*
     scores.sort(function(a,b) {
         return a.Score.localeCompare(b.Score) ? -1 : a.Time.localeCompare(b.Time);
     })
     */
+    /*
     let match = false
     for (i = 0; i < scores.length; i++){
         if (scores[i].Name == name) {
@@ -160,6 +251,7 @@ app.post('/result', function (req, resp){
         scores.push({"Name":name, "Rank":0, "Score":score,"Time":time});
     }
     /*scores.push({"Name":name, "Rank":0, "Score":score,"Time":time});*/
+    /*
     scores.sort(function (x,y) {
         var n = y.Score - x.Score;
         if (n !== 0) {
@@ -173,6 +265,7 @@ app.post('/result', function (req, resp){
         console.log(row)
     }
     */
+   /*
     for (i = 0; i < scores.length; i++) {
         scores[i].Rank = i + 1
     }
@@ -187,6 +280,7 @@ app.post('/result', function (req, resp){
     })
     console.log(jsonStr)
     resp.send("Fine that worked");
+    */
 });
 
 // Get scores for leaderboard

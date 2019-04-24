@@ -384,11 +384,11 @@ async function newFlag(time, flaglist) {
             }
         }
         else {
-            throw new Error("Problem Getting flag" + response.code);
+            throw new Error("Problem getting flag: " + response.status + " " + response.statusText);
         }
     }
     catch(error) {
-        alert ("problem: " + error);
+        alert (error);
     }
     /*
     let response = await fetch('http://127.0.0.1:8090/randflag',
@@ -472,16 +472,16 @@ async function save(time) {
     document.getElementById('gohome').addEventListener('click', async function(event){
         home()
     });
-    document.getElementById('code').addEventListener('input', async function(event){
-        console.log('INPUT FIELD')
-    });
+    //document.getElementById('code').addEventListener('input', async function(event){
+        //console.log('INPUT FIELD')
+    //});
     document.getElementById('enterCode').addEventListener('click', async function(event){
         console.log('Code')
-        if (document.getElementById('code').value == 'test'){
-            const state = document.getElementById('name').value + '.' + scoreval + '.' + seconds
-            sendResult(state)
-            home()
-        }
+        /*if (document.getElementById('code').value == 'test'){*/
+        let state = document.getElementById('code').value + '∩' + document.getElementById('name').value + '∩' + scoreval + '∩' + seconds 
+        sendResult(state)
+        home()
+        /*}*/
     });
 
     //let scoretime = mins + ':' + rem
@@ -515,7 +515,7 @@ async function save(time) {
         });
         */
         //const state = getRandomBytes(32); // Assume that this method will give you 32 bytes
-        const state = document.getElementById('name').value + '.' + scoreval + '.' + seconds
+        const state = document.getElementById('name').value + '∩' + scoreval + '∩' + seconds
         localStorage[state] = { data: '/somepath' };
         webAuth.authorize({
             state: state
@@ -575,12 +575,17 @@ async function sendResult(result) {
         body: "result=" + result
         });
         if(!response.ok){
-            throw new Error("problem sending results" + response.code);
+            console.log('Error !response.ok')
+            //console.log(response.statusCode)
+            //console.log(response)
+            //console.log(response.code)
+            throw new Error("Problem sending results: " + response.status + " " + response.statusText);
           }
         
     }
     catch (error) {
-    alert ("problem: " + error);
+        console.log('Error caught')
+        alert (error);
     }
 
 
@@ -643,18 +648,19 @@ document.getElementById('leaderboard').addEventListener('click', async function(
                 content += '</tr>'
             }
             content += '</table>'
+            content += '<br>'
             content += '</div>'
             document.getElementById('content').innerHTML = content;
 
 
         }
         else {
-            throw new Error("problem getting scores" + response.code);
+            throw new Error("Problem getting scores: " + response.status + " " + response.statusText);
         }
         
     }
     catch (error) {
-        alert ("problem: " + error);
+        alert (error);
     }
 
 
@@ -728,6 +734,7 @@ window.addEventListener('load', function() {
         webAuth.parseHash(function(err, authResult) {
         if (authResult && authResult.accessToken && authResult.idToken) {
             console.log(window.location.hash)
+            console.log(authResult.accessToken)
             window.location.hash = '';
             localLogin(authResult);
         } else if (err) {
@@ -742,8 +749,9 @@ window.addEventListener('load', function() {
         console.log('localLogin')
         //
         /*const authRes = webAuth.parseHash();*/
-        const state = authResult.state;
+        let state = authResult.state;
         console.log(state)
+        state = 'Authenticated' + '∩' + state
         sendResult(state)
         const olderAppState = localStorage[state];
         console.log(olderAppState)
