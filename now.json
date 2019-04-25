@@ -1,22 +1,10 @@
 {
-    "name": "FlagQuiz",
     "version": 2,
+    "name": "FlagQuiz",
     "builds": [
         { 
-            "src": "server.js", 
+            "src": "**/*.js", 
             "use": "@now/node" 
-        },
-        {
-            "src": "./client/index.js",
-            "use": "@now/static"
-        },
-        {
-            "src": "./client/index.html",
-            "use": "@now/static"
-        },
-        {
-            "src": "app.js",
-            "use": "@now/static"
         }
     ]
 }
