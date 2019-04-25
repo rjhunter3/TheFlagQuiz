@@ -7,7 +7,7 @@
             "use": "@now/node" 
         },
         {
-            "src": "./client",
+            "src": "./client/*",
             "use": "@now/static"
         }
     ]
