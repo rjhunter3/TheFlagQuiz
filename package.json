@@ -4,6 +4,7 @@
   "description": "Programming summative assessment 2",
   "main": "server.js",
   "scripts": {
+    "pretest": "eslint",
     "test": "jest",
     "dev": "nodemon server.js",
     "start": "node server.js"
