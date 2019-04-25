@@ -492,7 +492,7 @@ window.addEventListener('load', function() {
         state.token = 'Authenticated';
         sendResult(state);
         // Logs the user out, ensuring that authentication is performed at every POST request (in accordance with the specification)
-        window.location.replace('https://dev-3vwxnh5c.auth0.com/v2/logout?returnTo=' + window.location);
+        //window.location.replace('https://dev-3vwxnh5c.auth0.com/v2/logout?returnTo=' + window.location);
     } 
     handleAuthentication();
 });
