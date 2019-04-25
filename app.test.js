@@ -1,16 +1,10 @@
 
+// Jest tests
 'use strict';
-//var express = require('express')
-//var bodyParser = require('body-parser')
 const request = require('supertest');
 const app = require('./app');
-//var app = express()
-//app.use(bodyParser.json())
-//app.use(bodyParser.urlencoded({ extended: false }))
-
-
 jest.setTimeout(30000);
-
+// Tests for the random flag GET method
 describe('Test random flag service', () => {
     test('GET /randflag succeeds', () => {
         return request(app)
@@ -26,12 +20,8 @@ describe('Test random flag service', () => {
         return request(app)
             .get('/randflag')
             .expect(function(res) {
-                //console.log(res)
-                console.log(res.text)
                 let parse = JSON.parse(res.text)
-                console.log(parse[0])
                 let url = parse[0].substr(0,28)
-                console.log(url)
                 if(!(url == 'https://api.backendless.com/')) throw new Error("Bad URL")
             })
     })
@@ -39,20 +29,15 @@ describe('Test random flag service', () => {
         return request(app)
             .get('/randflag')
             .expect(function(res) {
-                //console.log(res)
-                console.log(res.text)
                 let parse = JSON.parse(res.text)
                 if(!((parse[1] != parse[2]) && (parse[1] != parse[3]) && (parse[1] != parse[4]) && (parse[2] != parse[3]) && (parse[2] != parse[4]) && (parse[3] != parse[4]))) throw new Error("Duplicate options")
             })
     })
 })
+// Tests for the result POST method
 describe('Test result posting service', () => {
-    //app.post('/', function(req, res){
-        //res.send(req.body.name);
-    //});
     test('POST /result requires a valid access token', () => {
         const params = JSON.stringify({"token": 'WrongToken', "name": 'test', "score": 0, "time": 0});
-        console.log(params)
         return request(app)
             .post('/result')
             .type('form')
@@ -60,15 +45,16 @@ describe('Test result posting service', () => {
             .expect(403)
     })
 })
-describe('Test score viewing service', () => {
-    test('GET /scores succeeds', () => {
+// Tests for the results GET method
+describe('Test result viewing service', () => {
+    test('GET /results succeeds', () => {
         return request(app)
-            .get('/scores')
+            .get('/results')
             .expect(200);
     })
-    test('GET /scores returns JSON', () => {
+    test('GET /results returns JSON', () => {
         return request(app)
-            .get('/scores')
+            .get('/results')
             .expect('Content-type', /json/);
     })
 })

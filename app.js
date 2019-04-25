@@ -1,3 +1,4 @@
+// Sets up express and other required dependencies
 const express = require('express');
 const fetch = require('node-fetch');
 var bodyParser = require('body-parser');
@@ -14,7 +15,7 @@ app.use(function(req, resp, next) {
     next();
 });
 
-// Gets random integer
+// Function which gets a random integer between min and max (The maximum is exclusive and the minimum is inclusive)
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -23,283 +24,118 @@ function getRandomInt(min, max) {
 
 // Services GET requests for random flags and countries
 app.get('/randflag', async function(req, resp){
-    console.log('hello there')
+    // Fetches a complete list of countries from countryapi, an external web service
     let response = await fetch("http://countryapi.gear.host/v1/Country/getCountries")
+    // Processes the response
     let body = await response.text()
     let data = JSON.parse(body);
+    // Obtains a random number
     let rand = getRandomInt(0,250)
+    // Uses the random number to obtain a link to the flag of a random country
     let flagurl = data.Response[rand].FlagPng
+    // Records the name of that country
     let countryname = data.Response[rand].Name
-    console.log(flagurl)
-    console.log(countryname)
-    /*resp.send(flagurl)*/
+    // Initialises array to send
     let send = []
     send.push(flagurl)
+    // Initialises options and numbers array
     let options = []
     let numbers = []
     options.push(countryname)
     numbers.push(rand)
-    console.log(numbers)
+    // Runs process to obtain 3 different random numbers
     for (let i=0; i < 3; i++) {
+        // Generates random number
         let random = getRandomInt(0,250)
-        console.log(random)
         let check = i
         let arraylength = numbers.length;
-        for (let j=0; j<arraylength; j++) {
-            console.log(numbers[j])
+        for (let j=0; j < arraylength; j++) {
+            // Detects a collision, chosen a random number twice
             if (random == numbers[j]) {
+                // Signals that the proccess should be ran again
                 i -= 1
-                console.log('### LOOK HERE ###')
             }
         }
+        // If the random number is different from the others, it is added to the array, and the country is recorded as an option
         if (check == i) {
             numbers.push(random)
             options.push(data.Response[random].Name)
-            console.log(numbers)
         }
     }
-    /*
-    for (k in options){
-        send.push(k)
-    }
-    */
+    // Combines arrays and sends it as a response
     send = send.concat(options)
-    console.log(options)
-    console.log(numbers)
-    console.log(send)
     resp.send(send)
-
-    /*
-    let flag = false
-    while (flag == false) {
-        let rand = getRandomInt(0,900)
-        console.log(rand)
-        let response = await fetch("http://countryapi.gear.host/v1/Country/getCountries?pNumericCode=" + rand)
-        let body = await response.text()
-        let data = JSON.parse(body);
-        console.log(data) /*Holy balls this works
-        let check = data.UserMessage
-        console.log()
-        console.log(check)
-        console.log()
-        /*if (response.ok){
-            flag = True
-        }
-        if (check == null){
-            flag = true
-            let flagurl = data.Response[0].FlagPng
-            let countryname = data.Response[0].Name
-            console.log(flagurl)
-            console.log(countryname)
-            resp.send(flagurl)
-        }
-    }
-    */
-    console.log('well this worked')
-    /*
-    console.log(data)
-    let flagurl = data.Response[0].FlagPng
-    let countryname = data.Response[0].Name
-    console.log(flagurl)
-    console.log(countryname)
-    */
 })
 
-// Handles saving the score
+// Handles saving the result to the results.json file
 app.post('/result', function (req, resp){
+    // Obtains the result from the body of the request
     const result = req.body.result;
-    console.log(result);
-    //console.log(result.Object);
-    //result = JSON.stringify(object)
-    //console.log(result)
-    /*
-    let pos0 = result.indexOf('∩');
-    let token = result.slice(0,pos0)
-    let pos1 = result.indexOf('∩', pos0 + 1);
-    let name = result.slice(pos0 + 1, pos1)
-    let pos2 = result.indexOf('∩',pos1 + 1)
-    let score = result.slice(pos1 + 1,pos2)
-    let pos3 = result.indexOf('∩',pos2 + 1)
-    let time = result.slice(pos2 + 1)
-    */
+    // Processes the result, splitting it into token, name, score and time
     let resultObj = JSON.parse(result)
     let token = resultObj.token;
     let name = resultObj.name;
     let score = resultObj.score;
     let time = resultObj.time;
-    //let token = result.slice(pos3 + 1)
-    console.log(token)
-    console.log(name)
-    console.log(score)
-    console.log(time)
-
-    //jwt.verify(token, 'l0LDj56zXjqWhAl7KxWyJwu7nutuM-c6pM71rEJ4kXpHuY5YJvr_1wwX5E18Afe9', function(err, decoded){
+    // Checks for a valid token value, either Authenticated or the code for test purposes
     if(token=='Authenticated' || token=='testcode'){
         score = parseInt(score);
         time = parseInt(time)
-
-        console.log(req.body);
-        console.log(name);
-        console.log(score);
-        console.log(time);
-        /*
-        var obj;
-        fs.readFile('scores.json', 'utf8', function (err, data) {
-            if (err) throw err;
-            obj = JSON.parse(data);
-        });
-        console.log(obj)
-        /*potatoes.push(pot);*/
-        var obj = JSON.parse(fs.readFileSync('scores.json', 'utf8'));
-        /*console.log(obj)
-        console.log(obj['Scores'])*/
-        var scores = obj['Scores']
-        console.log(scores)
-        /*
-        scores.sort(function(a,b) {
-            return a.Score.localeCompare(b.Score) ? -1 : a.Time.localeCompare(b.Time);
-        })
-        */
+        // Reads the content of results.json in to the server, stores in obj variable
+        var obj = JSON.parse(fs.readFileSync('results.json', 'utf8'));
+        var results = obj['Results']
         let match = false
-        for (i = 0; i < scores.length; i++){
-            if (scores[i].Name == name) {
+        // Checks for duplicate names, if duplicates detected, the highest scored name is retained
+        for (i = 0; i < results.length; i++){
+            if (results[i].Name == name) {
                 match = true
-                if (score > scores[i].Score){
-                    console.log(score)
-                    console.log(scores[i].Score)
-                    scores[i].Score = score
-                    scores[i].Time = time
+                if (score > results[i].Score){
+                    // Updates score and time with improved score
+                    results[i].Score = score
+                    results[i].Time = time
                 }
-                else if (score == scores[i].Score){
-                    //check time
-                    if (time < scores[i].Time){
-                        scores[i].Time = time
+                else if (score == results[i].Score){
+                    // If scores are equal, the best time is retained
+                    if (time < results[i].Time){
+                        results[i].Time = time
                     }
                 }
             }
         }
+        // If name is not a duplicate, it is added to results
         if (match == false) {
-            scores.push({"Name":name, "Rank":0, "Score":score,"Time":time});
+            results.push({"Name":name, "Rank":0, "Score":score,"Time":time});
         }
-        /*scores.push({"Name":name, "Rank":0, "Score":score,"Time":time});*/
-        scores.sort(function (x,y) {
+        // Function to sort the results
+        results.sort(function (x,y) {
             var n = y.Score - x.Score;
             if (n !== 0) {
                 return n;
             }
             return x.Time - y.Time;
         })
-        console.log(scores)
-        /*
-        for (var row in obj['Scores']){
-            console.log(row)
+        // Updates the rank of the results
+        for (i = 0; i < results.length; i++) {
+            results[i].Rank = i + 1
         }
-        */
-        for (i = 0; i < scores.length; i++) {
-            scores[i].Rank = i + 1
-        }
-        console.log(scores)
-        //obj['Scores'].push({"Name":name, "Rank":0, "Score":score,"Time":time});
-        console.log(obj)
-    
+        // obj is written back to results.json
         jsonStr = JSON.stringify(obj);
-        fs.writeFile('scores.json',jsonStr ,'utf8', function(err){
+        fs.writeFile('results.json',jsonStr ,'utf8', function(err){
             if (err) throw err;
-            console.log('complete')
         })
-        console.log(jsonStr)
-        resp.send("Fine that worked");
-
+        // Process worked
+        resp.send("Success");
+    // If the request has not been authorised, 403 (forbidden) code is sent
     } else {
     resp.sendStatus(403);
     }
-    //});
-    /*
-    score = parseInt(score)
-    time = parseInt(time)
-
-    console.log(req.body);
-    console.log(name);
-    console.log(score);
-    console.log(time);
-    /*
-    var obj;
-    fs.readFile('scores.json', 'utf8', function (err, data) {
-        if (err) throw err;
-        obj = JSON.parse(data);
-    });
-    console.log(obj)
-    /*potatoes.push(pot);*/
-    //var obj = JSON.parse(fs.readFileSync('scores.json', 'utf8'));
-    /*console.log(obj)
-    console.log(obj['Scores'])*/
-    //var scores = obj['Scores']
-    //console.log(scores)
-    /*
-    scores.sort(function(a,b) {
-        return a.Score.localeCompare(b.Score) ? -1 : a.Time.localeCompare(b.Time);
-    })
-    */
-    /*
-    let match = false
-    for (i = 0; i < scores.length; i++){
-        if (scores[i].Name == name) {
-            match = true
-            if (score > scores[i].Score){
-                console.log(score)
-                console.log(scores[i].Score)
-                scores[i].Score = score
-                scores[i].Time = time
-            }
-            else if (score == scores[i].Score){
-                //check time
-                if (time < scores[i].Time){
-                    scores[i].Time = time
-                }
-            }
-        }
-    }
-    if (match == false) {
-        scores.push({"Name":name, "Rank":0, "Score":score,"Time":time});
-    }
-    /*scores.push({"Name":name, "Rank":0, "Score":score,"Time":time});*/
-    /*
-    scores.sort(function (x,y) {
-        var n = y.Score - x.Score;
-        if (n !== 0) {
-            return n;
-        }
-        return x.Time - y.Time;
-    })
-    console.log(scores)
-    /*
-    for (var row in obj['Scores']){
-        console.log(row)
-    }
-    */
-   /*
-    for (i = 0; i < scores.length; i++) {
-        scores[i].Rank = i + 1
-    }
-    console.log(scores)
-    //obj['Scores'].push({"Name":name, "Rank":0, "Score":score,"Time":time});
-    console.log(obj)
-
-    jsonStr = JSON.stringify(obj);
-    fs.writeFile('scores.json',jsonStr ,'utf8', function(err){
-        if (err) throw err;
-        console.log('complete')
-    })
-    console.log(jsonStr)
-    resp.send("Fine that worked");
-    */
 });
-
-// Get scores for leaderboard
-app.get('/scores', async function(req, resp){
-    var obj = JSON.parse(fs.readFileSync('scores.json', 'utf8'));
-    var scores = obj['Scores']
-    console.log(scores)
-    resp.send(scores);
+// Get results for leaderboard
+app.get('/results', async function(req, resp){
+    // Open results.json
+    var obj = JSON.parse(fs.readFileSync('results.json', 'utf8'));
+    var results = obj['Results']
+    // Sends results as a response
+    resp.send(results);
 });
 module.exports = app;
