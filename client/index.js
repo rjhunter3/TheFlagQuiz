@@ -143,7 +143,7 @@ async function newFlag(time, flaglist) {
                         document.getElementById('wrong2').innerHTML = '<span style="color:red">' + wrong2 + '</span>';
                         document.getElementById('wrong3').innerHTML = '<span style="color:red">' + wrong3 + '</span>';
                         // Continues to another flag if less than 20 questions have been shown, after pausing 2 seconds to show the user the correct answer
-                        if (qnumberint < 2/*0*/){
+                        if (qnumberint < 20){
                             sleep(2000).then(() => {newFlag(time,flaglist);});
                         }
                         // If the user has answered the 20th question, the save function is executed, after pausing 2 seconds to show the user the correct answer
@@ -492,7 +492,7 @@ window.addEventListener('load', function() {
         state.token = 'Authenticated';
         sendResult(state);
         // Logs the user out, ensuring that authentication is performed at every POST request (in accordance with the specification)
-        //window.location.replace('https://dev-3vwxnh5c.auth0.com/v2/logout?returnTo=' + window.location);
+        window.location.replace('https://dev-3vwxnh5c.auth0.com/v2/logout?returnTo=' + window.location);
     } 
     handleAuthentication();
 });
