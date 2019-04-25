@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 const app = express();
 app.use(express.static('client'));
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Removes CORS errors
@@ -107,6 +108,11 @@ app.get('/randflag', async function(req, resp){
 // Handles saving the score
 app.post('/result', function (req, resp){
     const result = req.body.result;
+    console.log(result);
+    //console.log(result.Object);
+    //result = JSON.stringify(object)
+    //console.log(result)
+    /*
     let pos0 = result.indexOf('∩');
     let token = result.slice(0,pos0)
     let pos1 = result.indexOf('∩', pos0 + 1);
@@ -115,6 +121,12 @@ app.post('/result', function (req, resp){
     let score = result.slice(pos1 + 1,pos2)
     let pos3 = result.indexOf('∩',pos2 + 1)
     let time = result.slice(pos2 + 1)
+    */
+    let resultObj = JSON.parse(result)
+    let token = resultObj.token;
+    let name = resultObj.name;
+    let score = resultObj.score;
+    let time = resultObj.time;
     //let token = result.slice(pos3 + 1)
     console.log(token)
     console.log(name)

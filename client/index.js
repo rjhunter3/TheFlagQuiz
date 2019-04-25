@@ -87,7 +87,7 @@ async function newFlag(time, flaglist) {
     document.getElementById('content').innerHTML = response;*/
     console.log('fetching now')
     try {
-        let response = await fetch('http://127.0.0.1:8090/randflag',
+        let response = await fetch('./randflag',
         {
         method: "GET"
         });
@@ -478,7 +478,8 @@ async function save(time) {
     document.getElementById('enterCode').addEventListener('click', async function(event){
         console.log('Code')
         /*if (document.getElementById('code').value == 'test'){*/
-        let state = document.getElementById('code').value + '∩' + document.getElementById('name').value + '∩' + scoreval + '∩' + seconds 
+        //let state = document.getElementById('code').value + '∩' + document.getElementById('name').value + '∩' + scoreval + '∩' + seconds 
+        const state = {"token": document.getElementById('code').value, "name": document.getElementById('name').value, "score": scoreval, "time": seconds}
         sendResult(state)
         home()
         /*}*/
@@ -515,7 +516,8 @@ async function save(time) {
         });
         */
         //const state = getRandomBytes(32); // Assume that this method will give you 32 bytes
-        const state = document.getElementById('name').value + '∩' + scoreval + '∩' + seconds
+        const state = JSON.stringify({"token": '', "name": document.getElementById('name').value, "score": scoreval, "time": seconds});
+        //const state = document.getElementById('name').value + '∩' + scoreval + '∩' + seconds
         localStorage[state] = { data: '/somepath' };
         webAuth.authorize({
             state: state
@@ -565,8 +567,10 @@ async function sendResult(result) {
     console.log(time)
     */
     console.log(result)
+    result = JSON.stringify(result)
     try {
-        let response = await fetch('http://127.0.01:8090/result',
+        //let response = await fetch('http://127.0.01:8090/result',
+        let response = await fetch('./result',
         {
         method: "POST",
         headers: {
@@ -612,7 +616,7 @@ document.getElementById('leaderboard').addEventListener('click', async function(
     document.getElementById('title').innerHTML = content;
     document.getElementById('content').innerHTML = '';
     try {
-        let response = await fetch('http://127.0.01:8090/scores',
+        let response = await fetch('./scores',
         {
         method: "GET",
         });
@@ -751,7 +755,9 @@ window.addEventListener('load', function() {
         /*const authRes = webAuth.parseHash();*/
         let state = authResult.state;
         console.log(state)
-        state = 'Authenticated' + '∩' + state
+        //state = 'Authenticated' + '∩' + state
+        state = JSON.parse(state)
+        state.token = 'Authenticated';
         sendResult(state)
         const olderAppState = localStorage[state];
         console.log(olderAppState)
