@@ -1,3 +1,4 @@
 // Runs the server at port 8090
 const app = require('./app');
-app.listen(8090);
+const port = process.env.PORT || 8090;
+app.listen(port);
