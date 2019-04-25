@@ -764,6 +764,8 @@ window.addEventListener('load', function() {
         accessToken = '';
         idToken = '';
         expiresAt = 0;
+        
+        window.location.replace("https://dev-3vwxnh5c.auth0.com/v2/logout?returnTo=" + window.location)
         //localStorage.remove(state);
         //
         // Set isLoggedIn flag in localStorage
