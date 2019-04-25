@@ -3,8 +3,12 @@
     "name": "FlagQuiz",
     "builds": [
         { 
-            "src": "**/*.js", 
+            "src": "server.js", 
             "use": "@now/node" 
+        },
+        {
+            "src": "./client",
+            "use": "@now/static"
         }
     ]
 }
