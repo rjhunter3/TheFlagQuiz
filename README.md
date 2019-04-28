@@ -26,10 +26,11 @@ Included with this README.MD should be the following files:
   - style.css - (css improving the look of the UI)
 <a name="How_to_run_locally"></a>
 ## How to run locally
-1. Make sure node and npm are installed
-2. Navigate using the command line to the FlagQuiz directory and type `npm install`, this should install the required packages
-3. Type `npm start` to start the server
-4. Navigate using a web browser to `localhost:8090` and the app should appear
+1. Make sure node and npm are installed.
+2. Navigate using the command line to the FlagQuiz directory and type `npm install`, this should install the required packages.
+3. Type `npm start` to start the server.
+4. Open a modern web browser compatible with ES2017 (Required for async and await), the latest versions of Chrome or Firefox should suffice.
+5. Navigate using a web browser to `localhost:8090` and the app should appear.
 <a name="How_to_test"></a>
 ## How to test
 1. Ensuring that the app is installed with npm, type `npm test` to run several jest test cases from app.test.js.
@@ -51,9 +52,9 @@ The app employs the use of two main groups of entities, `flaglist` and `results`
 
 Two significant external web services have been implemented into the app. This includes, as aforementioned, Auth0 which provides the option to login using Google or GitHub authentication as well as a dedicated account service. This provides authentication for every separate POST request that is sent. Also, an external API is used, CountryAPI ([available here](https://github.com/fabian7593/CountryAPI)). This API is open source and free to use, and is used to provide flag URLs and country names to the client for each question.
 
-The app uses the Bootstrap framework to provide a clean, simple and responsive UI, which has been optimised for mobile devices as well as traditional desktop browsers. Content is dynamically served and rendered using client side JavaScript.
+The app uses the Bootstrap framework to provide a clean, simple and responsive UI, which has been optimised for mobile devices as well as traditional desktop browsers. Content is dynamically served and rendered using client side JavaScript. The website was tested using the Google Chrome (version 73) and Mozilla Firefox (version 66) web browsers.
 
-As well as running the app locally, the app has been deployed to the cloud using Heroku and can be found [here](https://theflagquiz.herokuapp.com/). The leaderboard content of the app may be cleared periodically to ensure it doesn't get too cluttered.
+As well as running the app locally, the app has been deployed to the cloud using Heroku and can be found [here](https://theflagquiz.herokuapp.com/). The leaderboard content of the app may be cleared periodically to ensure it doesn't get too cluttered. As mentioned before, ensure that a modern web browser (compatible with ES2017) is used to view the website.
 
 For an in-depth explanation of the code used, see the code comments.
 <a name="Licence"></a>
