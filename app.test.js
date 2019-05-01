@@ -3,7 +3,10 @@
 'use strict';
 const request = require('supertest');
 const app = require('./app');
+const fs = require('fs');
 jest.setTimeout(30000);
+// Mocks fs.writeFile function so results.json is not changed during testing
+fs.writeFile = jest.fn();
 // Tests for the random flag GET method
 describe('Test random flag service', () => {
     test('GET /randflag succeeds', () => {
@@ -43,6 +46,14 @@ describe('Test result posting service', () => {
             .type('form')
             .send('result=' + params)
             .expect(403);
+    });
+    test('POST /result succeeds if given an appropriate token', () => {
+        const params = JSON.stringify({'token': 'testcode', 'name': 'test', 'score': 0, 'time': 0});
+        return request(app)
+            .post('/result')
+            .type('form')
+            .send('result=' + params)
+            .expect(200);
     });
 });
 // Tests for the results GET method
