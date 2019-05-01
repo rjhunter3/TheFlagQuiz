@@ -17,6 +17,7 @@ Included with this README.MD should be the following files:
 - app.test.js - (contains several jest test cases)
 - .eslintrc.js - (contains eslint settings for testing the code quality)
 - package.json - (information required for npm)
+- package-lock.json - (more information for npm)
 - client folder containing:
   - favicon.png - (browser icon)
   - flagquiz.png - (logo image)
