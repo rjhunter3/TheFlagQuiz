@@ -25,16 +25,18 @@ function getRandomInt(min, max) {
 // Services GET requests for random flags and countries
 app.get('/randflag', async function(req, resp){
     // Fetches a complete list of countries from countryapi, an external web service
-    let response = await fetch('http://countryapi.gear.host/v1/Country/getCountries');
+    //let response = await fetch('http://countryapi.gear.host/v1/Country/getCountries');
     // Processes the response
-    let body = await response.text();
-    let data = JSON.parse(body);
+    //let body = await response.text();
+    //let data = JSON.parse(body);
+    // Reads the content of countries.json in to the server, stores in obj variable
+    var obj = JSON.parse(fs.readFileSync('countries.json', 'utf8'));
     // Obtains a random number
     let rand = getRandomInt(0,250);
     // Uses the random number to obtain a link to the flag of a random country
-    let flagurl = data.Response[rand].FlagPng;
+    let flagurl = "https://flagcdn.com/w320/" + obj[rand].alpha.toLowerCase() + ".png";
     // Records the name of that country
-    let countryname = data.Response[rand].Name;
+    let countryname = obj[rand].name;
     // Initialises array to send
     let send = [];
     send.push(flagurl);
@@ -59,7 +61,7 @@ app.get('/randflag', async function(req, resp){
         // If the random number is different from the others, it is added to the array, and the country is recorded as an option
         if (check == i) {
             numbers.push(random);
-            options.push(data.Response[random].Name);
+            options.push(obj[random].name);
         }
     }
     // Combines arrays and sends it as a response
