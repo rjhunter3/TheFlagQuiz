@@ -32,9 +32,10 @@ app.get('/randflag', async function(req, resp){
     // Reads the content of countries.json in to the server, stores in obj variable
     var obj = JSON.parse(fs.readFileSync('countries.json', 'utf8'));
     // Obtains a random number
-    let rand = getRandomInt(0,250);
+    let rand = getRandomInt(0,249);
     // Uses the random number to obtain a link to the flag of a random country
-    let flagurl = "https://flagcdn.com/w320/" + obj[rand].alpha.toLowerCase() + ".png";
+    //let flagurl = "https://flagcdn.com/w320/" + obj[rand].alpha.toLowerCase() + ".png";
+    let flagurl = "https://flagcdn.com/" + obj[rand].alpha.toLowerCase() + ".svg";
     // Records the name of that country
     let countryname = obj[rand].name;
     // Initialises array to send
@@ -48,7 +49,7 @@ app.get('/randflag', async function(req, resp){
     // Runs process to obtain 3 different random numbers
     for (let i=0; i < 3; i++) {
         // Generates random number
-        let random = getRandomInt(0,250);
+        let random = getRandomInt(0,249);
         let check = i;
         let arraylength = numbers.length;
         for (let j=0; j < arraylength; j++) {
